@@ -2,18 +2,19 @@
  @import"bootstrap/theme";
  body > header {
     &.navbar {
+        border: 0;
+        border-radius: 0px;
         border-top: 4px solid #e11f2b;
+        z-index: 2000;
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 0px;
         .navbar-inner {
             border-bottom: 1px solid #d4d4d4;
             -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
             -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
         }
-        z-index: 2000;
-        width: 100%;
-        background-color: #fff;
-        border-radius: 3px;
-        margin-bottom: 0px;
         #logo {
             font-family:'Paytone One', sans-serif;
             font-size: 36px;
