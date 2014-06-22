@@ -99,7 +99,9 @@
         color: #fff;
         background-color: #0074af;
         border: 1px solid #0074af;
-        padding: 20px 32px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        width: 100%;
         &:hover {
             background-color: #00527c;
             border: 1px solid #00527c;
@@ -171,7 +173,9 @@
         color: #fff;
         background-color: #0074af;
         border: 1px solid #0074af;
-        padding: 30px 62px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        width: 100%;
         &:hover {
             background-color: #00527c;
             border: 1px solid #00527c;
