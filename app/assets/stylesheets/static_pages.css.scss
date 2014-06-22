@@ -42,11 +42,11 @@
                 font-weight: 700;
                 font-style: normal;
                 -webkit-font-smoothing: antialiased;
-                font-size: 20px;
+                font-size: 17px;
                 >a {
                     height: 90px!important;
                     line-height: 110px!important;
-                    padding: 0 12px!important;
+                    padding: 0 17px!important;
                     color: #616161!important;
                 }
             }
@@ -143,6 +143,13 @@
         text-align: center;
         color: #2e2f2f;
         max-width: 400px;
+    }
+}
+#faq-block {
+    background-color: rgba(235, 235, 239, .6);
+    h2.inverted {
+        color: #e11f2b;
+        background: #fff;
     }
 }
 .ta-center {
