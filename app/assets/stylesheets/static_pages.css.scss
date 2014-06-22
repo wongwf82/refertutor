@@ -4,8 +4,15 @@
     background: #fff;
     border: 0;
     border-top: 4px solid #e11f2b;
-    .navbar {
-        position: relative;
+    &.navbar {
+        .navbar-inner {
+            border-bottom: 1px solid #d4d4d4;
+            -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+            -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+        }
+        z-index: 2000;
+        width: 100%;
         background-color: #fff;
         border-radius: 3px;
         margin-bottom: 0px;
@@ -72,7 +79,8 @@
 }
 #hero-block {
     background-color: rgba(242, 242, 233, .65);
-    margin: 10px;
+    /* margin: 10px; */
+    padding-top: 92px;
     min-height: 500px;
     h3 {
         display: block;
@@ -100,7 +108,8 @@
     }
 }
 #how-it-works-block {
-    padding-bottom: 100px;
+    padding-top: 92px;
+    padding-bottom: 80px;
     div.sprite {
         background-image: image-url("how-it-works.png");
         background-repeat: no-repeat;
@@ -145,11 +154,29 @@
         max-width: 400px;
     }
 }
+#top-nav .current a {
+    background-color: rgba(213, 211, 207, .6);
+}
 #faq-block {
+    padding-top: 80px;
+    padding-bottom: 80px;
     background-color: rgba(235, 235, 239, .6);
     h2.inverted {
         color: #e11f2b;
         background: #fff;
+    }
+}
+#start-block {
+    padding-top: 180px;
+    .btn {
+        color: #fff;
+        background-color: #0074af;
+        border: 1px solid #0074af;
+        padding: 30px 62px;
+        &:hover {
+            background-color: #00527c;
+            border: 1px solid #00527c;
+        }
     }
 }
 .ta-center {
@@ -171,4 +198,50 @@ a.btn.go, button.go {
 a.btn.go:hover, button.go:hover {
     background: #e11f2b;
     color: #fff;
+}
+body>footer {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    p.copyright {
+        margin-top: 0;
+        font-family:"Montserrat";
+        font-weight: 500;
+        -webkit-font-smoothing: antialiased;
+        font-size: 12px;
+        color: #68696b;
+        text-align: left;
+    }
+    ul li {
+        margin: 0!important;
+        padding: 0!important;
+        &.sep {
+            padding: 4px!important;
+            &:after {
+                content:"•";
+            }
+        }
+        a {
+            font-family:"Montserrat";
+            font-weight: 700;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            font-size: 14px;
+            line-height: 20px;
+            color: #e11f2b;
+            height: 20px;
+        }
+    }
+}
+a.rt-link {
+    color: #e11f2b;
+    text-decoration: none;
+}
+a.rt-link:hover {
+    color: #e11f2b;
+    text-decoration: none;
+    border-bottom: 1px dashed #e11f2b;
+}
+.list-inline, .list-unstyled {
+    margin-left: 0;
+    list-style: none;
 }

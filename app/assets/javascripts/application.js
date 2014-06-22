@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
-//= require_tree .
+
+//= require jquery-1.8.3.min
+//= require noconflict.jquery-1.8.3
+//= require jquery.nav
