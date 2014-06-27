@@ -1,0 +1,59 @@
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <ul class="list-inline">
+          <li><a href="/about" class="rt-link">About</a></li>
+          <li class="sep"></li>
+          <li><a href="#" class="rt-link" data-toggle="modal" data-target="#supportModal">Support</a></li>
+          <li class="sep"></li>
+          <li><a href="/" class="rt-link">Privacy Policy</a></li>
+          <li class="sep"></li>
+          <li><a href="/" class="rt-link">Terms of Service</a></li>
+        </ul>
+        <p class="copyright">Copyright © 2014 ReferTutor. All rights reserved.</p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</footer>
+
+<div id="supportModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <%= form_for(@support) do |f| %>                
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header ta-center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h2 class="inverted rt-header">ReferTutor help center</h2>
+        </div>
+        <div class="modal-body copy">
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.label :name %>
+              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
+                                      :title => 'Minimum 3 characters' %>
+              <%= f.label :email %>
+              <%= f.text_field :email, :required => true, 
+                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
+              <%= f.label :phone %>
+              <%= f.text_field :phone, :required => true, :pattern => '\d*', 
+                                       :title => 'No spaces between numbers' %>
+            </div>
+            <div class="col-md-6">
+              <%= f.label :subject %>
+              <%= f.text_field :subject, :required => true, :pattern => '.{3,}', 
+                                         :title => 'Minimum 3 characters' %>
+              <%= f.label :message %>
+              <%= f.text_area :message, :rows => "4", 
+                                              :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "SUBMIT", class: "btn expand" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 

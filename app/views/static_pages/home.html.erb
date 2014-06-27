@@ -1,29 +1,19 @@
-<header class="navbar" data-spy="affix">  
-  <div class="navbar-inner">  
-    <div class="container">
-      <a class="navbar-brand" href="/">
-        <img class="brand" src="<%= image_path('logo.png') %>" width="200">
-      </a>
-      <ul id="top-nav" class="nav pull-right">        
-        <li><a href="#hero-block" style="display:none"></a></li>    
-        <li><a href="#how-it-works-block">How it works</a></li>
-        <li><a href="#faq-block">FAQ</a></li>
-        <li><a href="#start-block">Get started</a></li>
-      </ul>
-    </div>
-  </div>
-</header>
-
 <div id="hero-block">
   <div class="row">
-    <div class="col-md-6">      
+    <div class="col-md-6">    
       <img src="<%= image_path('tutors.png') %>" style="margin-left: 40px; margin-top: 80px;">
     </div>
     <div class="col-md-6">
+      <% flash.each do |type, message| %>
+        <div class="alert <%= bootstrap_class_for(type) %> fade in">
+          <button class="close" data-dismiss="alert">×</button>
+          <%= message %>
+        </div>
+      <% end %>      
       <br/><br/>
       <h2 class="rt-header">WE HELP TUTORS MAKE MONEY</h2>
       <h3>
-        <b>Finding a tutor for your friend or client?</b><br>Now you can make money refering trusted tutors from here!<br/><br/>
+        <b>Finding a tutor for your friend or client?</b><br>Now you can make money refering trusted tutors from ReferTutor!<br/><br/>
         <b>Finding a tutor for yourself?</b><br/>Think of the money you make as a rebate!<br/><br/>
         <b>Are you a tutor who is looking for more clients?</b><br>Here is the place to advertise yourself! You can set a filter to only email you relevant leads based on your subjects of expertise.
       </h3>
@@ -39,6 +29,7 @@
   </div>
 </div>
 
+<a id="how"></a>
 <div id="how-it-works-block">
   <div class="container">
     <div class="row">
@@ -75,6 +66,7 @@
   </div>
 </div>
 
+<a id="faq"></a>
 <div id="faq-block">
   <div class="container">
     <div class="row">
@@ -130,6 +122,7 @@
   </div>
 </div>
 
+<a id="start"></a>
 <div id="start-block">
   <div class="container">
     <div class="row">
@@ -153,33 +146,7 @@
   </div>
 </div>
 
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9">
-      <!--     
-          <ul class="list-inline">
-            <li><a href="/" class="rt-link">About</a></li>
-            <li class="sep"></li>
-            <li><a href="/" class="rt-link">Support</a></li>
-            <li class="sep"></li>
-            <li><a href="/" class="rt-link">Privacy Policy</a></li>
-            <li class="sep"></li>
-            <li><a href="/" class="rt-link">Terms of Service</a></li>
-          </ul> -->
-        <p class="copyright">Copyright © 2014 ReferTutor. All rights reserved.</p>
-      </div>
-      <div class="col-md-3"></div>
-    </div>
-  </div>
-</footer>
 
-<% content_for :foot do %>
-  <script type="text/javascript">
-    jq183('#top-nav').onePageNav({
-      currentClass: 'current',
-      changeHash: true
-    });  
-  </script>
-<% end %>
+
+
 

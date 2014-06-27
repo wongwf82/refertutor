@@ -1,0 +1,42 @@
+<header id="rt-header" class="navbar-fixed-top">
+  <div class="navbar-inner">  
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img class="brand" src="<%= image_path('logo.png') %>" width="200">
+      </a>
+      <ul id="top-nav" class="nav pull-right">        
+        <li><a href="#hero-block" style="display:none"></a></li>    
+        <li><a href="/#how">How it works</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/#start">Get started</a></li>
+      </ul>
+    </div>
+  </div>  
+</header>
+
+<% content_for :foot do %>
+  <script type="text/javascript">
+    jq183('#top-nav').onePageNav({
+      currentClass: 'current',
+      changeHash: true
+    });  
+  </script>
+
+  <!-- Easing when Anchor link is clicked -->
+  <script type="text/javascript">
+    $('a[href*=#]').click(function() {
+      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
+          && location.hostname == this.hostname
+        ) {
+        var $target = $(this.hash);
+        $target = $target.length && $target || $('[name=' + this.hash.slice(1) +']');
+        if ($target.length) {
+          var targetOffset = $target.offset().top;
+          $('html,body')
+          .animate({scrollTop: targetOffset}, {duration: 1000, easing: 'easeInOutExpo'});
+          return false;
+        }
+      }
+    });
+  </script>  
+<% end %>
