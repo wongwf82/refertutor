@@ -1,0 +1,61 @@
+<%= form_for(@tutor_seek) do |f| %>
+  <% if @tutor_seek.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tutor_seek.errors.count, "error") %> prohibited this tutor_seek from being saved:</h2>
+
+      <ul>
+      <% @tutor_seek.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile_number %><br>
+    <%= f.text_field :mobile_number %>
+  </div>
+  <div class="field">
+    <%= f.label :home_number %><br>
+    <%= f.text_field :home_number %>
+  </div>
+  <div class="field">
+    <%= f.label :reason %><br>
+    <%= f.text_field :reason %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br>
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :service_area %><br>
+    <%= f.text_field :service_area %>
+  </div>
+  <div class="field">
+    <%= f.label :subjects %><br>
+    <%= f.text_field :subjects %>
+  </div>
+  <div class="field">
+    <%= f.label :level %><br>
+    <%= f.text_field :level %>
+  </div>
+  <div class="field">
+    <%= f.label :num_students %><br>
+    <%= f.text_field :num_students %>
+  </div>
+  <div class="field">
+    <%= f.label :requirements %><br>
+    <%= f.text_field :requirements %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :tutor_seeks
+
   resources :supports
 
   root 'static_pages#home'

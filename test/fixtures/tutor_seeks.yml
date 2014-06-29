@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  name: MyString
+  mobile_number: MyString
+  home_number: MyString
+  reason: MyString
+  state: MyString
+  service_area: MyString
+  subjects: MyString
+  level: MyString
+  num_students: MyString
+  requirements: MyString
+
+two:
+  title: MyString
+  name: MyString
+  mobile_number: MyString
+  home_number: MyString
+  reason: MyString
+  state: MyString
+  service_area: MyString
+  subjects: MyString
+  level: MyString
+  num_students: MyString
+  requirements: MyString

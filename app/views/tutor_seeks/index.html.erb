@@ -1,0 +1,47 @@
+<h1>Listing tutor_seeks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Name</th>
+      <th>Mobile number</th>
+      <th>Home number</th>
+      <th>Reason</th>
+      <th>State</th>
+      <th>Service area</th>
+      <th>Subjects</th>
+      <th>Level</th>
+      <th>Num students</th>
+      <th>Requirements</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tutor_seeks.each do |tutor_seek| %>
+      <tr>
+        <td><%= tutor_seek.title %></td>
+        <td><%= tutor_seek.name %></td>
+        <td><%= tutor_seek.mobile_number %></td>
+        <td><%= tutor_seek.home_number %></td>
+        <td><%= tutor_seek.reason %></td>
+        <td><%= tutor_seek.state %></td>
+        <td><%= tutor_seek.service_area %></td>
+        <td><%= tutor_seek.subjects %></td>
+        <td><%= tutor_seek.level %></td>
+        <td><%= tutor_seek.num_students %></td>
+        <td><%= tutor_seek.requirements %></td>
+        <td><%= link_to 'Show', tutor_seek %></td>
+        <td><%= link_to 'Edit', edit_tutor_seek_path(tutor_seek) %></td>
+        <td><%= link_to 'Destroy', tutor_seek, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tutor seek', new_tutor_seek_path %>

@@ -24,15 +24,12 @@ class SupportsController < ApplicationController
   # POST /supports
   # POST /supports.json
   def create
-    flash[:success] = 'Thank you and chat soon!'
-    redirect_to :back
-
-    # @support = Support.new(support_params)
-    # if @support.save
-    #   UserMailer.support(@support).deliver
-    #   flash[:success] = 'Thank you and chat soon!'
-    #   redirect_to :back
-    # end    
+    @support = Support.new(support_params)
+    if @support.save
+      UserMailer.support(@support).deliver
+      flash[:success] = 'Thank you and chat soon!'
+      redirect_to :back
+    end    
   end
 
   # PATCH/PUT /supports/1
