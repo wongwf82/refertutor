@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @client_seek.name %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @client_seek.age %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @client_seek.gender %>
+</p>
+
+<p>
+  <strong>Mobile number:</strong>
+  <%= @client_seek.mobile_number %>
+</p>
+
+<p>
+  <strong>Home number:</strong>
+  <%= @client_seek.home_number %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @client_seek.state %>
+</p>
+
+<p>
+  <strong>Service area:</strong>
+  <%= @client_seek.service_area %>
+</p>
+
+<p>
+  <strong>Subjects:</strong>
+  <%= @client_seek.subjects %>
+</p>
+
+<p>
+  <strong>Levels:</strong>
+  <%= @client_seek.levels %>
+</p>
+
+<p>
+  <strong>Availability:</strong>
+  <%= @client_seek.availability %>
+</p>
+
+<p>
+  <strong>Requirements:</strong>
+  <%= @client_seek.requirements %>
+</p>
+
+<%= link_to 'Edit', edit_client_seek_path(@client_seek) %> |
+<%= link_to 'Back', client_seeks_path %>

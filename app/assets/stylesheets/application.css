@@ -12,5 +12,6 @@
  *
  *= require_tree .
  *= require font-awesome
+ *= require multiple-select
  *= require_self
  */

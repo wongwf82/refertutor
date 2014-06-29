@@ -24,14 +24,12 @@ class TutorSeeksController < ApplicationController
   # POST /tutor_seeks
   # POST /tutor_seeks.json
   def create
-
     @tutor_seek = TutorSeek.new(tutor_seek_params)
     if @tutor_seek.save
       UserMailer.tutor_seek(@tutor_seek).deliver
       flash[:success] = 'Thank you and chat soon!'
       redirect_to :back
     end   
-
   end
 
   # PATCH/PUT /tutor_seeks/1

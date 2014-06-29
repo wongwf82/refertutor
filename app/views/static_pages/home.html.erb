@@ -22,7 +22,7 @@
           <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
         </div>
         <div class="col-md-5">
-          <a href="/" class="btn">I'M LOOKING FOR CLIENTS</a>
+          <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">I'M LOOKING FOR CLIENTS</a>
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
         <a href="#" class="btn pull-right" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
       </div>
       <div class="col-md-3">
-        <a href="/" class="btn">I'M LOOKING FOR CLIENTS</a>
+        <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">I'M LOOKING FOR CLIENTS</a>
       </div>
     </div>
     <div class="row">
@@ -212,7 +212,93 @@
   <% end %>
 </div> 
 
+<div id="clientModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <%= form_for(@client_seek) do |f| %>                
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header ta-center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h2 class="inverted rt-header">I'm looking for clients</h2>
+        </div>
+        <div class="modal-body copy">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="section_heading_title">About you</strong>
+              <%= f.label :name %>
+              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
+                                      :title => 'Minimum 3 characters' %>
+              <%= f.label :age %>
+              <%= f.text_field :age, :required => true, :pattern => '\d*', 
+                                     :title => 'No spaces between numbers' %>
+              <%= f.label :gender %>
+              <%= f.select :gender, ['Male','Female'], { :include_blank => '-- Please select --' }, :required => true %>              
+              <%= f.label :mobile_number %>
+              <%= f.text_field :mobile_number, :required => true, :pattern => '\d*', 
+                                               :title => 'No spaces between numbers' %>
+              <%= f.label :home_number %>
+              <%= f.text_field :home_number, :required => true, :pattern => '\d*', 
+                                       :title => 'No spaces between numbers' %>
+              <%= f.label :email %>
+              <%= f.text_field :email, :required => true, 
+                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
+            </div>
+            <div class="col-md-4">
+              <strong class="section_heading_title">About the tuition</strong>
+              <%= f.label :state %>
+              <%= f.select :state, ['WP Kuala Lumpur', 'WP Labuan', 'WP Putrajaya', 'Selangor', 'Pulau Pinang', 'Melaka', 'Perak', 
+                                    'Negeri Sembilan', 'Johor', 'Perlis', 'Kedah', 'Pahang', 'Terengganu', 'Kelantan', 'Sabah', 
+                                    'Sarawak'], { :include_blank => '-- Please select --' }, :required => true %>
+              <%= f.label :service_area, 'Preferred service area' %>
+              <%= f.text_field :service_area, :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
+              <%= f.label :subjects %>
+              <%= f.text_area :subjects, :rows => "6", 
+                                              :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
+              <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
+              <%= f.text_area :levels, :rows => "4", 
+                                              :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
+            </div>
+            <div class="col-md-4">
+              <strong class="section_heading_title">&nbsp;</strong>
+              <%= label_tag :multi_availability, 'My availability' %>
+              <%= select_tag :multi_availability, "<option>MON - Morning (8am-2pm)</option><option>MON - Afternoon (2pm-6pm)</option><option>MON - Evening (6pm-10pm)</option><option>TUE - Morning (8am-2pm)</option><option>TUE - Afternoon (2pm-6pm)</option><option>TUE - Evening (6pm-10pm)</option><option>WED - Morning (8am-2pm)</option><option>WED - Afternoon (2pm-6pm)</option><option>WED - Evening (6pm-10pm)</option><option>THU - Morning (8am-2pm)</option><option>THU - Afternoon (2pm-6pm)</option><option>THU - Evening (6pm-10pm)</option><option>FRI - Morning (8am-2pm)</option><option>FRI - Afternoon (2pm-6pm)</option><option>FRI - Evening (6pm-10pm)</option><option>SAT - Morning (8am-2pm)</option><option>SAT - Afternoon (2pm-6pm)</option><option>SAT - Evening (6pm-10pm)</option><option>SUN - Morning (8am-2pm)</option><option>SUN - Afternoon (2pm-6pm)</option><option>SUN - Evening (6pm-10pm)</option>".html_safe, :multiple => true %>
+              <%= f.hidden_field :availability %>
+              <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
+              <%= f.text_area :requirements, :rows => "16", 
+                                              :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
 
 
 
 
+
+
+
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "SUBMIT", class: "btn expand" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 
+
+<% content_for :document_ready do %>
+  <script type="text/javascript">
+    $(document).ready(function(){     
+      $('#multi_availability').multipleSelect({
+        width: '100%',
+        maxHeight: '500px',
+        placeholder: '-- Please select --',
+        onClose: function() {   
+          $("#client_seek_availability").val($('#multi_availability').multipleSelect('getSelects'));
+        }
+      });
+    });
+  </script>
+<% end %>

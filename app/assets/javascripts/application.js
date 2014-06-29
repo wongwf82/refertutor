@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require jquery.easing
+//= require jquery.multiple.select
 
 //= require jquery-1.8.3.min
 //= require noconflict.jquery-1.8.3

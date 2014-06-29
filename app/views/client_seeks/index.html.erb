@@ -1,0 +1,47 @@
+<h1>Listing client_seeks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Mobile number</th>
+      <th>Home number</th>
+      <th>State</th>
+      <th>Service area</th>
+      <th>Subjects</th>
+      <th>Levels</th>
+      <th>Availability</th>
+      <th>Requirements</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @client_seeks.each do |client_seek| %>
+      <tr>
+        <td><%= client_seek.name %></td>
+        <td><%= client_seek.age %></td>
+        <td><%= client_seek.gender %></td>
+        <td><%= client_seek.mobile_number %></td>
+        <td><%= client_seek.home_number %></td>
+        <td><%= client_seek.state %></td>
+        <td><%= client_seek.service_area %></td>
+        <td><%= client_seek.subjects %></td>
+        <td><%= client_seek.levels %></td>
+        <td><%= client_seek.availability %></td>
+        <td><%= client_seek.requirements %></td>
+        <td><%= link_to 'Show', client_seek %></td>
+        <td><%= link_to 'Edit', edit_client_seek_path(client_seek) %></td>
+        <td><%= link_to 'Destroy', client_seek, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Client seek', new_client_seek_path %>

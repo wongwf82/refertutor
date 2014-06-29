@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :client_seeks
+
   resources :tutor_seeks
 
   resources :supports
