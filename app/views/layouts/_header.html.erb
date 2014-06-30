@@ -15,12 +15,6 @@
 </header>
 
 <% content_for :foot do %>
-  <script type="text/javascript">
-    jq183('#top-nav').onePageNav({
-      currentClass: 'current',
-      changeHash: true
-    });  
-  </script>
 
   <!-- Easing when Anchor link is clicked -->
   <script type="text/javascript">
@@ -39,4 +33,42 @@
       }
     });
   </script>  
+<% end %>
+
+<% content_for :document_ready do %>
+
+  <script type="text/javascript">
+
+    webshims.setOptions('forms-ext', {
+        replaceUI: 'auto'
+    });
+    webshims.polyfill('forms forms-ext');
+
+    function goToAnchor() { 
+      setTimeout(function() {
+        window.scrollTo(0, 0);
+        hash = document.location.hash;
+        if (hash) {
+            window.location.href = hash;
+        }
+      }, 1500);
+    }
+
+    $(document).ready(function(){    
+
+      $(this).updatePolyfill(); 
+      
+      $('#multi_availability').multipleSelect({
+        width: '100%',
+        maxHeight: '500px',
+        placeholder: '-- Please select --',
+        onClose: function() {   
+          $("#client_seek_availability").val($('#multi_availability').multipleSelect('getSelects'));
+        }
+      });
+          
+      goToAnchor();
+    });
+  </script>
+
 <% end %>

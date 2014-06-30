@@ -288,21 +288,15 @@
   <% end %>
 </div> 
 
-<% content_for :document_ready do %>
+<% content_for :foot do %>
+
   <script type="text/javascript">
 
-    $.webshims.setOptions('basePath', '/webshims/shims/');
-    $.webshims.polyfill();
+    jq183('#top-nav').onePageNav({
+      currentClass: 'current',
+      changeHash: true
+    });  
 
-    $(document).ready(function(){     
-      $('#multi_availability').multipleSelect({
-        width: '100%',
-        maxHeight: '500px',
-        placeholder: '-- Please select --',
-        onClose: function() {   
-          $("#client_seek_availability").val($('#multi_availability').multipleSelect('getSelects'));
-        }
-      });
-    });
   </script>
+  
 <% end %>
