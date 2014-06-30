@@ -111,6 +111,8 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    webshims-rails (1.14.1)
+      rails (> 3.1.0)
 
 PLATFORMS
   ruby
@@ -130,3 +132,4 @@ DEPENDENCIES
   sqlite3 (= 1.3.8)
   turbolinks (= 1.1.1)
   uglifier (= 2.1.1)
+  webshims-rails

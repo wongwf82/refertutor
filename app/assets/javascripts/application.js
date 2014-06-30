@@ -16,8 +16,8 @@
 //= require turbolinks
 //= require jquery.easing
 //= require jquery.multiple.select
-//= require modernizr-custom
-//= require ../../../public/js-webshim/minified/polyfiller
+//= require webshims/extras/modernizr-custom
+//= require webshims/polyfiller
 
 //= require jquery-1.8.3.min
 //= require noconflict.jquery-1.8.3
