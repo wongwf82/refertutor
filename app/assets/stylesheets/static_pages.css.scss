@@ -1,11 +1,11 @@
-@import"bootstrap";
+$navbar-default-bg: #ffffff;
+ @import"bootstrap";
  @import"bootstrap/theme";
- body > .navbar {
+ .navbar-default {
     border: 0;
     border-radius: 0px;
     border-top: 4px solid #e11f2b;
     width: 100%;
-    background-color: #fff;
     margin-bottom: 0px;
     border-bottom: 1px solid #d4d4d4;
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
@@ -29,7 +29,6 @@
     .nav {
         >li {
             float: left;
-            background-color: #fff;
             margin: 0;
             font-family:"Montserrat";
             font-weight: 700;
@@ -83,10 +82,18 @@
         font-family:"Montserrat";
         font-weight: 500;
         -webkit-font-smoothing: antialiased;
-        font-size: 18px;
-        padding: 8px 10px;
-        color: rgba(13, 14, 14, .66);
         line-height: 30px;
+        color: rgba(13, 14, 14, .66);
+        font-size: 18px;
+        &.question {
+            font-weight:bold;
+            margin-bottom: 0px;
+            color: #000000;
+            margin-top: 30px;
+        }
+        &.answer {
+            margin-top: 0px;
+        }
     }
     .btn {
         color: #fff;
@@ -95,7 +102,7 @@
         padding-top: 20px;
         padding-bottom: 20px;
         width: 100%;
-        margin-top: 5px;
+        margin-top: 30px;
         &:hover {
             background-color: #00527c;
             border: 1px solid #00527c;
@@ -164,8 +171,17 @@ h2.inverted {
         margin-top: 50px;
     }
     .btn {
+        color: #fff;
+        background-color: #0074af;
+        border: 1px solid #0074af;
+        padding-top: 20px;
+        padding-bottom: 20px;
         width: 90%;
         margin-top: 5px;
+        &:hover {
+            background-color: #00527c;
+            border: 1px solid #00527c;
+        }
     }
     img {
         margin-top: 50px;
