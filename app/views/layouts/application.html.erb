@@ -10,11 +10,32 @@
     <%= content_for?(:head) ? yield(:head) : '' %>
   </head>
   <body>
-      <%= render 'layouts/header' %>
-      <%= yield %>
-      <%= render 'layouts/footer' %>
-      <%= content_for?(:foot) ? yield(:foot) : '' %>
-      <%= yield(:document_ready) %>
-      <%= yield(:window_load) %>  
+    <%= render 'layouts/header' %>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
+    <%= content_for?(:foot) ? yield(:foot) : '' %>
+
+    <script type="text/javascript">
+
+      // Fix when turbolink retains previous scroll position
+      function scrollTop() {
+        setTimeout(function() {
+          window.scrollTo(0, 0);
+          goToAnchor();
+        }, 0);
+      }
+
+      $(document).ready(function(){
+        <%= yield(:document_ready) %>
+      });
+
+      $(window).load(function(){
+        scrollTop();
+        <%= yield(:window_load) %>
+      });
+    
+    </script>  
+
+
   </body>
 </html>

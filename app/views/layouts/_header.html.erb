@@ -1,3 +1,25 @@
+<nav id="rt-header" class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <img class="brand" src="<%= image_path('logo.png') %>">
+      </a>
+    </div>
+    <div id="top-nav" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#hero-block" style="display:none"></a></li>    
+        <li><a href="/#how">How it works</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/#start">Get started</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 
 <header id="rt-header" class="navbar-fixed-top">
   <div class="navbar-inner">  
     <div class="container">
@@ -12,7 +34,7 @@
       </ul>
     </div>
   </div>  
-</header>
+</header> -->
 
 <% content_for :foot do %>
 
@@ -32,46 +54,30 @@
         }
       }
     });
+
+    function goToAnchor() { 
+      hash = document.location.hash;
+      if (hash) {
+          window.location.href = hash;
+      }
+    }
+
+    $.webshims.setOptions('basePath', '/webshims/shims/');
+    $.webshims.polyfill();  
   </script>  
 <% end %>
 
 <% content_for :document_ready do %>
+ 
+  $(this).updatePolyfill(); 
 
-  <script type="text/javascript">
-
-    // webshims.setOptions('forms-ext', {
-    //     replaceUI: 'auto'
-    // });
-    // webshims.polyfill('forms forms-ext');
-
-    $.webshims.setOptions('basePath', '/webshims/shims/');
-    $.webshims.polyfill();    
-
-    function goToAnchor() { 
-      setTimeout(function() {
-        window.scrollTo(0, 0);
-        hash = document.location.hash;
-        if (hash) {
-            window.location.href = hash;
-        }
-      }, 1500);
+  $('#multi_availability').multipleSelect({
+    width: '100%',
+    maxHeight: '500px',
+    placeholder: '-- Please select --',
+    onClose: function() {   
+      $("#client_seek_availability").val($('#multi_availability').multipleSelect('getSelects'));
     }
-
-    $(document).ready(function(){    
-
-      $(this).updatePolyfill(); 
-
-      $('#multi_availability').multipleSelect({
-        width: '100%',
-        maxHeight: '500px',
-        placeholder: '-- Please select --',
-        onClose: function() {   
-          $("#client_seek_availability").val($('#multi_availability').multipleSelect('getSelects'));
-        }
-      });
-          
-      goToAnchor();
-    });
-  </script>
+  });          
 
 <% end %>

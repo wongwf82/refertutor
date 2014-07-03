@@ -1,29 +1,33 @@
 <div id="hero-block">
-  <div class="row">
-    <div class="col-md-6">    
-      <img src="<%= image_path('tutors.png') %>" style="margin-left: 40px; margin-top: 80px;">
-    </div>
-    <div class="col-md-6">
-      <% flash.each do |type, message| %>
-        <div class="alert <%= bootstrap_class_for(type) %> fade in">
-          <button class="close" data-dismiss="alert">×</button>
-          <%= message %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <% flash.each do |type, message| %>
+            <div class="alert <%= bootstrap_class_for(type) %> fade in">
+              <button class="close" data-dismiss="alert">×</button>
+              <%= message %>
+            </div>
+          <% end %>      
+          <br/><br/>
+          <h2 class="rt-header">WE HELP TUTORS MAKE MONEY</h2>
+          <h3>
+            <b>Finding a tutor for your friend or client?</b><br>Now you can make money refering trusted tutors from ReferTutor!<br/><br/>
+            <b>Finding a tutor for yourself?</b><br/>Think of the money you make as a rebate!<br/><br/>
+            <b>Are you a tutor who is looking for more clients?</b><br>Here is the place to advertise yourself! You can set a filter to only email you relevant leads based on your subjects of expertise.
+          </h3>
         </div>
-      <% end %>      
-      <br/><br/>
-      <h2 class="rt-header">WE HELP TUTORS MAKE MONEY</h2>
-      <h3>
-        <b>Finding a tutor for your friend or client?</b><br>Now you can make money refering trusted tutors from ReferTutor!<br/><br/>
-        <b>Finding a tutor for yourself?</b><br/>Think of the money you make as a rebate!<br/><br/>
-        <b>Are you a tutor who is looking for more clients?</b><br>Here is the place to advertise yourself! You can set a filter to only email you relevant leads based on your subjects of expertise.
-      </h3>
-      <div class="row">
-        <div class="col-md-5">
-          <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
+        <div class="row ta-center">
+          <div class="col-md-6">
+            <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
+          </div>
+          <div class="col-md-6">
+            <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">I'M LOOKING FOR CLIENTS</a>
+          </div>
         </div>
-        <div class="col-md-5">
-          <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">I'M LOOKING FOR CLIENTS</a>
-        </div>
+      </div>
+      <div class="col-md-6">    
+        <img src="<%= image_path('tutors.png') %>" style="width: 550px; padding-top: 140px;">
       </div>
     </div>
   </div>
@@ -126,21 +130,19 @@
 <div id="start-block">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 ta-center" style="height: 80px;">
+      <div class="col-md-6 ta-center">
         <h2 class="inverted rt-header">Try it now. It’s free.</h2>
       </div>
     </div>
-    <div class="row">
+    <div id="start-btn" class="row ta-center">
       <div class="col-md-3">
-        <a href="#" class="btn pull-right" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
+        <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
       </div>
       <div class="col-md-3">
         <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">I'M LOOKING FOR CLIENTS</a>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-6 col-md-6">
-        <img src="<%= image_path('students.jpg') %>" style="margin-top: -200px;">
+      <div class="col-md-6">
+        <img src="<%= image_path('students.jpg') %>">
       </div>
     </div>
   </div>
@@ -269,14 +271,6 @@
               <%= f.text_area :requirements, :rows => "16", 
                                               :required => true, :pattern => '.{3,}', 
                                               :title => 'Minimum 3 characters' %>
-
-
-
-
-
-
-
-
             </div>
           </div>
         </div>
