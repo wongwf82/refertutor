@@ -15,6 +15,9 @@ gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
 gem 'font-awesome-sass'
 gem 'webshims-rails'
+gem 'delayed_job_active_record'
+gem 'workless', '~> 1.1.3'
+gem 'daemons'
 
 group :development do
   gem 'sqlite3', '1.3.8'

@@ -26,7 +26,7 @@ class ClientSeeksController < ApplicationController
   def create
     @client_seek = ClientSeek.new(client_seek_params)
     if @client_seek.save
-      UserMailer.client_seek(@client_seek).deliver
+      UserMailer.delay.client_seek(@client_seek)
       flash[:success] = 'Thank you and chat soon!'
       redirect_to :back
     end

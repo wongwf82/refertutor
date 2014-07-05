@@ -26,7 +26,7 @@ class SupportsController < ApplicationController
   def create
     @support = Support.new(support_params)
     if @support.save
-      UserMailer.support(@support).deliver
+      UserMailer.delay.support(@support)
       flash[:success] = 'Thank you and chat soon!'
       redirect_to :back
     end    

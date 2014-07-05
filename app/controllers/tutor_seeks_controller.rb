@@ -26,7 +26,7 @@ class TutorSeeksController < ApplicationController
   def create
     @tutor_seek = TutorSeek.new(tutor_seek_params)
     if @tutor_seek.save
-      UserMailer.tutor_seek(@tutor_seek).deliver
+      UserMailer.delay.tutor_seek(@tutor_seek)
       flash[:success] = 'Thank you and chat soon!'
       redirect_to :back
     end   
