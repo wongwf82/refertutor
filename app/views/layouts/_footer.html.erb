@@ -62,10 +62,14 @@
 
 <script>
     var createAllErrors = function() {
+
       var form = $( this ),
           errorList = $( "ul.errorMessages", form );
 
       var showAllErrorMessages = function() {
+
+        alert('yes');
+
         errorList.empty();
 
         // Find all invalid fields within the form.
@@ -83,6 +87,16 @@
 
         form.find( ":invalid" ).first().focus();
       };
+
+
+      // Support Safari
+      form.on( "submit", function( event ) {
+        alert('yes2');
+          // if ( this.checkValidity && !this.checkValidity() ) {
+          //     $( this ).find( ":invalid" ).first().focus();
+          //     event.preventDefault();
+          // }
+      });
 
       $( "input[type=submit], button:not([type=button])", form )
           .on( "click", showAllErrorMessages);
