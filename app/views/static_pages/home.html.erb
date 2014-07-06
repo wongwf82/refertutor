@@ -193,8 +193,8 @@
                                               :title => 'Minimum 3 characters' %>
               <%= f.label :subjects %>
               <%= f.text_area :subjects, :rows => "4", 
-                                              :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
+                                              :required => true, :pattern => '.{2,}', 
+                                              :title => 'Minimum 2 characters' %>
               <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
               <%= f.text_area :levels, :rows => "2", 
                                               :required => true, :pattern => '.{3,}', 
@@ -205,9 +205,7 @@
             <div class="col-md-4">
               <strong class="section_heading_title">&nbsp;</strong>
               <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
-              <%= f.text_area :requirements, :rows => "16", 
-                                              :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
+              <%= f.text_area :requirements, :rows => "16" %>
             </div>
           </div>
         </div>
@@ -261,12 +259,12 @@
                                               :title => 'Minimum 3 characters' %>
               <%= f.label :subjects %>
               <%= f.text_area :subjects, :rows => "6", 
-                                              :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
+                                              :required => true, :pattern => '.{2,}', 
+                                              :title => 'Minimum 2 characters' %>
               <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
               <%= f.text_area :levels, :rows => "4", 
-                                              :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
+                                              :required => true, :pattern => '.{2,}', 
+                                              :title => 'Minimum 2 characters' %>
             </div>
             <div class="col-md-4">
               <strong class="section_heading_title">&nbsp;</strong>
@@ -274,9 +272,7 @@
               <%= select_tag :multi_availability, "<option>MON - Morning (8am-2pm)</option><option>MON - Afternoon (2pm-6pm)</option><option>MON - Evening (6pm-10pm)</option><option>TUE - Morning (8am-2pm)</option><option>TUE - Afternoon (2pm-6pm)</option><option>TUE - Evening (6pm-10pm)</option><option>WED - Morning (8am-2pm)</option><option>WED - Afternoon (2pm-6pm)</option><option>WED - Evening (6pm-10pm)</option><option>THU - Morning (8am-2pm)</option><option>THU - Afternoon (2pm-6pm)</option><option>THU - Evening (6pm-10pm)</option><option>FRI - Morning (8am-2pm)</option><option>FRI - Afternoon (2pm-6pm)</option><option>FRI - Evening (6pm-10pm)</option><option>SAT - Morning (8am-2pm)</option><option>SAT - Afternoon (2pm-6pm)</option><option>SAT - Evening (6pm-10pm)</option><option>SUN - Morning (8am-2pm)</option><option>SUN - Afternoon (2pm-6pm)</option><option>SUN - Evening (6pm-10pm)</option>".html_safe, :multiple => true %>
               <%= f.hidden_field :availability %>
               <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
-              <%= f.text_area :requirements, :rows => "16", 
-                                              :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
+              <%= f.text_area :requirements, :rows => "16" %>
             </div>
           </div>
         </div>
