@@ -68,8 +68,11 @@
         var showAllErrorMessages = function() {
             errorList.empty();
 
+            var invalidFieldOffset = 0;
             // Find all invalid fields within the form.
             var invalidFields = form.find( ":invalid" ).each( function( index, node ) {
+
+                invalidFieldOffset = node.offsetTop;
 
                 // Find the field's corresponding label
                 var label = $( "label[for=" + node.id + "] "),
@@ -80,6 +83,8 @@
                     .show()
                     .append( "<li><span>" + label.html() + ":</span> " + message + "</li>" );
             });
+
+            window.scrollTo(0, invalidFieldOffset);
         };
 
         // Support Safari
@@ -104,7 +109,7 @@
 
     $( "form" ).each( createAllErrors );
 
-    
+
     // $( "#new_client_seek" ).each( createAllErrors );
     // $( "#new_support" ).each( createAllErrors );
 </script>
