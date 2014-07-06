@@ -68,11 +68,11 @@
         var showAllErrorMessages = function() {
             errorList.empty();
 
-            var invalidFieldOffset = 0;
+            // var invalidFieldOffset = 0;
             // Find all invalid fields within the form.
             var invalidFields = form.find( ":invalid" ).each( function( index, node ) {
 
-                invalidFieldOffset = node.offsetTop;
+                // invalidFieldOffset = node.offsetTop;
 
                 // Find the field's corresponding label
                 var label = $( "label[for=" + node.id + "] "),
@@ -84,16 +84,19 @@
                     .append( "<li><span>" + label.html() + ":</span> " + message + "</li>" );
             });
 
-            window.scrollTo(0, invalidFieldOffset);
+            // window.scrollTo(0, invalidFieldOffset);
+            form.find( ":invalid" ).last().focus();
         };
 
         // Support Safari
-        form.on( "submit", function( event ) {
-            if ( this.checkValidity && !this.checkValidity() ) {
-                $( this ).find( ":invalid" ).first().focus();
-                event.preventDefault();
-            }
-        });
+        // form.on( "submit", function( event ) {
+        //   alert('1');
+        //     if ( this.checkValidity && !this.checkValidity() ) {
+        //         alert('2');
+        //         $( this ).find( ":invalid" ).first().focus();
+        //         event.preventDefault();
+        //     }
+        // });
 
         $( "input[type=submit], button:not([type=button])", form )
             .on( "click", showAllErrorMessages);
