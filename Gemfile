@@ -16,7 +16,7 @@ gem 'jbuilder', '1.0.2'
 gem 'font-awesome-sass'
 gem 'webshims-rails'
 gem 'delayed_job_active_record'
-gem 'workless', '~> 1.1.3'
+gem 'workless', '~> 1.2.2'
 gem 'daemons'
 
 group :development do
