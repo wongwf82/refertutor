@@ -6,16 +6,155 @@
         <img class="brand" src="<%= image_path('logo.png') %>">
       </a>
     </div>
-    <div id="top-nav" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#hero-block" style="display:none"></a></li>    
-        <li><a href="/#how">How it works</a></li>
-        <li><a href="/#faq">FAQ</a></li>
-        <li><a href="/#start">Get started</a></li>
-      </ul>
+    <div id="top-nav" class="collapse navbar-collapse pull-right" style="width: 70%;">
+      <div class="col-md-9">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#hero-block" style="display:none"></a></li>    
+          <li><a href="/how">How it works</a></li>
+          <li><a href="/how#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">POST A JOB</a>
+      </div>
     </div>
   </div>
 </nav>
+
+
+<div id="clientModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <%= form_for(@client_seek) do |f| %>                
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header ta-center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h2 class="inverted rt-header">Apply or Refer a tutor</h2>
+        </div>
+        <div class="modal-body copy">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="section_heading_title">About you</strong>
+              <%= f.label :name %>
+              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
+                                      :title => 'Minimum 3 characters' %>
+              <%= f.label :mobile_number %>
+              <%= f.text_field :mobile_number, :required => true, :pattern => '\d*', 
+                                               :title => 'No spaces between numbers' %>
+              <%= f.label :email %>
+              <%= f.text_field :email, :required => true, 
+                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
+              <%= f.label :state %>
+              <%= f.select :state, ['WP Kuala Lumpur', 'WP Labuan', 'WP Putrajaya', 'Selangor', 'Pulau Pinang', 'Melaka', 'Perak', 
+                                    'Negeri Sembilan', 'Johor', 'Perlis', 'Kedah', 'Pahang', 'Terengganu', 'Kelantan', 'Sabah', 
+                                    'Sarawak'], { :include_blank => '-- Please select --' }, :required => true %>
+            </div>
+            <div class="col-md-8"><strong class="section_heading_title">About the tutor whom you are referring</strong></div>
+            <div class="col-md-4">          
+              <%= f.label :name %>
+              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
+                                      :title => 'Minimum 3 characters' %>          
+              <%= f.label :mobile_number %>
+              <%= f.text_field :mobile_number, :required => true, :pattern => '\d*', 
+                                               :title => 'No spaces between numbers' %>
+              <%= f.label :email %>
+              <%= f.text_field :email, :required => true, 
+                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>              
+              <%= f.label :age %>
+              <%= f.text_field :age, :required => true, :pattern => '\d*', 
+                                     :title => 'No spaces between numbers' %>
+              <%= f.label :gender %>
+              <%= f.select :gender, ['Male','Female'], { :include_blank => '-- Please select --' }, :required => true %>
+              <%= f.label :service_area, 'Preferred service area' %>
+              <%= f.text_field :service_area %>
+            </div>
+            <div class="col-md-4">
+              <%= label_tag :multi_availability, 'Availability' %>
+              <%= select_tag :multi_availability, "<option>MON - Morning (8am-2pm)</option><option>MON - Afternoon (2pm-6pm)</option><option>MON - Evening (6pm-10pm)</option><option>TUE - Morning (8am-2pm)</option><option>TUE - Afternoon (2pm-6pm)</option><option>TUE - Evening (6pm-10pm)</option><option>WED - Morning (8am-2pm)</option><option>WED - Afternoon (2pm-6pm)</option><option>WED - Evening (6pm-10pm)</option><option>THU - Morning (8am-2pm)</option><option>THU - Afternoon (2pm-6pm)</option><option>THU - Evening (6pm-10pm)</option><option>FRI - Morning (8am-2pm)</option><option>FRI - Afternoon (2pm-6pm)</option><option>FRI - Evening (6pm-10pm)</option><option>SAT - Morning (8am-2pm)</option><option>SAT - Afternoon (2pm-6pm)</option><option>SAT - Evening (6pm-10pm)</option><option>SUN - Morning (8am-2pm)</option><option>SUN - Afternoon (2pm-6pm)</option><option>SUN - Evening (6pm-10pm)</option>".html_safe, :multiple => true %>
+              <%= f.hidden_field :availability %>
+              <%= f.label :gender, 'Experience' %>
+              <%= f.select :gender, ['Up to 5 years','6-10 years','11-15 years','16-20 years','21-25 years','26-30 years','Over 30 years'], { :include_blank => '-- Please select --' } %>
+              <%= f.label :subjects %>
+              <%= f.text_area :subjects, :rows => "6" %>
+              <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
+              <%= f.text_area :levels, :rows => "4" %>
+<!--               <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
+              <%= f.text_area :requirements, :rows => "16" %> -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <ul class="errorMessages"></ul>
+          <%= f.submit "SUBMIT", class: "btn expand" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 
+
+<div id="tutorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <%= form_for(@tutor_seek) do |f| %>                
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header ta-center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h2 class="inverted rt-header">I'm looking for tutors</h2>
+        </div>
+        <div class="modal-body copy">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="section_heading_title">About you</strong>
+              <%= f.label :title %>
+              <%= f.select :title, ['Mr', 'Ms', 'Mdm', 'Mrs'], { :include_blank => '-- Please select --' }, :required => true %>
+              <%= f.label :name %>
+              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
+                                      :title => 'Minimum 3 characters' %>
+              <%= f.label :mobile_number %>
+              <%= f.text_field :mobile_number, :required => true, :pattern => '\d*', 
+                                               :title => 'No spaces between numbers' %>
+              <%= f.label :home_number %>
+              <%= f.text_field :home_number, :required => true, :pattern => '\d*', 
+                                       :title => 'No spaces between numbers' %>
+              <%= f.label :email %>
+              <%= f.text_field :email, :required => true, 
+                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
+              <%= f.label :reason, 'I’m looking for a tutor for' %>
+              <%= f.select :reason, ['Myself', 'My friend', 'My client'], { :include_blank => '-- Please select --' }, :required => true %>
+            </div>
+            <div class="col-md-4">
+              <strong class="section_heading_title">About the tuition</strong>
+              <%= f.label :state %>
+              <%= f.select :state, ['WP Kuala Lumpur', 'WP Labuan', 'WP Putrajaya', 'Selangor', 'Pulau Pinang', 'Melaka', 'Perak', 
+                                    'Negeri Sembilan', 'Johor', 'Perlis', 'Kedah', 'Pahang', 'Terengganu', 'Kelantan', 'Sabah', 
+                                    'Sarawak'], { :include_blank => '-- Please select --' }, :required => true %>
+              <%= f.label :service_area, 'Preferred service area' %>
+              <%= f.text_field :service_area, :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
+              <%= f.label :subjects %>
+              <%= f.text_area :subjects, :rows => "4", 
+                                              :required => true, :pattern => '.{2,}', 
+                                              :title => 'Minimum 2 characters' %>
+              <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
+              <%= f.text_area :levels, :rows => "2", 
+                                              :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
+              <%= f.label :num_students, 'Number of students' %>
+              <%= f.select :num_students, ['1', '2', '3', '4', '5 or more'] %>
+            </div>
+            <div class="col-md-4">
+              <strong class="section_heading_title">&nbsp;</strong>
+              <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
+              <%= f.text_area :requirements, :rows => "16" %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <ul class="errorMessages"></ul>
+          <%= f.submit "SUBMIT", class: "btn expand" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 
 
 <!-- 
 <header id="rt-header" class="navbar-fixed-top">

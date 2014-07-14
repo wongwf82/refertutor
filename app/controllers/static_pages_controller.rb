@@ -1,17 +1,27 @@
 class StaticPagesController < ApplicationController
 
   def home
-    @support = Support.new
-    @tutor_seek = TutorSeek.new
-    @client_seek = ClientSeek.new
+    init
   end
 
   def about
-    @support = Support.new
+    init
+  end
+
+  def how
+    init
   end
 
   def test
+    init
+  end
+
+private
+
+  def init
     @support = Support.new
+    @tutor_seek = TutorSeek.new
+    @client_seek = ClientSeek.new
   end
 
 end

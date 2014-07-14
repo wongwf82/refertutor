@@ -1,299 +1,48 @@
 <div id="hero-block">
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <div class="row">
+      <div class="col-md-12">
+        <div class="row ta-center">
           <% flash.each do |type, message| %>
             <div class="alert <%= bootstrap_class_for(type) %> fade in">
               <button class="close" data-dismiss="alert">×</button>
               <%= message %>
             </div>
-          <% end %>      
-          <br/><br/>
-          <h2 class="rt-header">WE HELP TUTORS MAKE MONEY</h2>
-
-          <h3 class="question">Finding a tutor for your friend or client?</h3>
-          <h3 class="answer">Make money refering trusted tutors from ReferTutor!</h3>
-
-          <h3 class="question">Finding a tutor for yourself?</h3>
-          <h3 class="answer">Think of the money you make as a rebate!</h3>
-
-          <h3 class="question">Are you a tutor who is looking for more clients?</h3>
-          <h3 class="answer"><u>We find you leads!</u> We only email you relevant leads based on your subjects of expertise.</h3>
-
+          <% end %>   
+          <div class="header-container">
+            <h2 class="rt-header">Refer a tutor.</h2><BR/>
+            <h2 class="rt-header inverted">The tutor gets a job.</h2><BR/>
+            <h2 class="rt-header">You get paid.</h2>
+          </div>          
         </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="sprite send"></div>
+            <h3>Curated Jobs</h3>
+            <p>
+              Only top-notch tutoring jobs inside
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div class="sprite paid"></div>
+            <h3>Great pay</h3>
+            <p>
+              We share 50% of our finder's fee with you
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div class="sprite referrals"></div>
+            <h3>Referrals</h3>
+            <p>
+              Unleash the power of your network
+            </p>
+          </div>
+        </div>        
         <div class="row ta-center">
-          <div class="col-md-6">
-            <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
-          </div>
-          <div class="col-md-6">
-            <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">I'M LOOKING FOR CLIENTS</a>
-          </div>
+          <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">REFER A TUTOR</a>
         </div>
-      </div>
-      <div class="col-md-6">    
-        <img src="<%= image_path('tutors.png') %>" style="width: 550px; padding-top: 140px;">
       </div>
     </div>
   </div>
 </div>
 
-<a id="how"></a>
-<div id="how-it-works-block">
-  <div class="container">
-    <div class="row">
-      <div class="header-container">
-        <h2 class="rt-header">HOW IT WORKS</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="sprite send"></div>
-        <h3>Send out the job</h3>
-        <p>
-          Let us know what you're looking for, and ReferTutor helps you contact tutors who match your criteria.
-        </p>
-      </div>
-      <div class="col-md-4">
-        <div class="sprite referrals"></div>
-        <h3>Referrals flow in</h3>
-        <p>
-          Tutors who match your criteria consent to paying the finder’s fee when they start the job.
-        </p>
-      </div>
-      <div class="col-md-4">
-        <div class="sprite paid"></div>
-        <h3>Get paid</h3>
-        <p>
-          We take care of the rest! You get 50% of the finder’s fee when a tutor starts on the job.
-        </p>
-      </div>
-    </div>
-    <div class="row ta-center">
-      <a href="#start-block" class="btn go" rel="anchor">Get Started</a>
-    </div>
-  </div>
-</div>
-
-<a id="faq"></a>
-<div id="faq-block">
-  <div class="container">
-    <div class="row">
-      <div class="header-container">
-        <h2 class="inverted rt-header">FAQ</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Who pays the finder’s fee?</h3>
-        <p>
-          The tutor whom ReferTutor contacted pays a finder fee prior to starting his/her job with the client you refer.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <h3>How much is finder’s fee?</h3>
-        <p>
-          Depending on the demand for a client, ReferTutor negotiates a reasonable finder fee with the tutors. Let us do the hard work and you can relax after refering a client to us!
-        </p>
-      </div>     
-    </div> 
-    <div class="row">
-      <div class="col-md-6">
-        <h3>How long before I receive my finder’s fee?</h3>
-        <p>
-          Normally it takes a few weeks before a tutor accepts a job and start with the client you refer. If you don't hear from us after 30 days, please do not hesitate to contact us.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <h3>Who are the trusted tutors?</h3>
-        <p>
-          Tutors who join us have a detailed profile and we verify that information by phone discussion. Tutors are then asked to invite and connect with at least 3 other tutors. The more tutor connections a tutor has, the more he/she can be trusted.
-        </p>
-      </div>     
-    </div> 
-    <div class="row">
-      <div class="col-md-6">
-        <h3>How are the tutors picked?</h3>
-        <p>
-          We only contact tutors who match your and their criteria. This way we avoid spamming our tutors with unsuitable jobs endlessly.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <h3>I’ve more questions, how can I contact you?</h3>
-        <p>
-          The best way to reach us is through <a href="#" data-toggle="modal" data-target="#supportModal">ReferTutor Help Center</a>.
-        </p>
-      </div>     
-    </div> 
-    <div class="row ta-center" style="margin-top: 50px;">
-      <a href="#start-block" class="btn go" rel="anchor">Get Started</a>
-    </div>
-  </div>
-</div>
-
-<a id="start"></a>
-<div id="start-block">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 ta-center">
-        <h2 class="inverted rt-header">Try it now. It’s free.</h2>
-      </div>
-    </div>
-    <div id="start-btn" class="row ta-center">
-      <div class="col-md-3">
-        <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">I'M LOOKING FOR TUTORS</a>
-      </div>
-      <div class="col-md-3">
-        <a href="#" class="btn" data-toggle="modal" data-target="#clientModal">I'M LOOKING FOR CLIENTS</a>
-      </div>
-      <div class="col-md-6">
-        <img src="<%= image_path('students.jpg') %>">
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="tutorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <%= form_for(@tutor_seek) do |f| %>                
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header ta-center">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="inverted rt-header">I'm looking for tutors</h2>
-        </div>
-        <div class="modal-body copy">
-          <div class="row">
-            <div class="col-md-4">
-              <strong class="section_heading_title">About you</strong>
-              <%= f.label :title %>
-              <%= f.select :title, ['Mr', 'Ms', 'Mdm', 'Mrs'], { :include_blank => '-- Please select --' }, :required => true %>
-              <%= f.label :name %>
-              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
-                                      :title => 'Minimum 3 characters' %>
-              <%= f.label :mobile_number %>
-              <%= f.text_field :mobile_number, :required => true, :pattern => '\d*', 
-                                               :title => 'No spaces between numbers' %>
-              <%= f.label :home_number %>
-              <%= f.text_field :home_number, :required => true, :pattern => '\d*', 
-                                       :title => 'No spaces between numbers' %>
-              <%= f.label :email %>
-              <%= f.text_field :email, :required => true, 
-                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
-              <%= f.label :reason, 'I’m looking for a tutor for' %>
-              <%= f.select :reason, ['Myself', 'My friend', 'My client'], { :include_blank => '-- Please select --' }, :required => true %>
-            </div>
-            <div class="col-md-4">
-              <strong class="section_heading_title">About the tuition</strong>
-              <%= f.label :state %>
-              <%= f.select :state, ['WP Kuala Lumpur', 'WP Labuan', 'WP Putrajaya', 'Selangor', 'Pulau Pinang', 'Melaka', 'Perak', 
-                                    'Negeri Sembilan', 'Johor', 'Perlis', 'Kedah', 'Pahang', 'Terengganu', 'Kelantan', 'Sabah', 
-                                    'Sarawak'], { :include_blank => '-- Please select --' }, :required => true %>
-              <%= f.label :service_area, 'Preferred service area' %>
-              <%= f.text_field :service_area, :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
-              <%= f.label :subjects %>
-              <%= f.text_area :subjects, :rows => "4", 
-                                              :required => true, :pattern => '.{2,}', 
-                                              :title => 'Minimum 2 characters' %>
-              <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
-              <%= f.text_area :levels, :rows => "2", 
-                                              :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
-              <%= f.label :num_students, 'Number of students' %>
-              <%= f.select :num_students, ['1', '2', '3', '4', '5 or more'] %>
-            </div>
-            <div class="col-md-4">
-              <strong class="section_heading_title">&nbsp;</strong>
-              <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
-              <%= f.text_area :requirements, :rows => "16" %>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <ul class="errorMessages"></ul>
-          <%= f.submit "SUBMIT", class: "btn expand" %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div> 
-
-<div id="clientModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <%= form_for(@client_seek) do |f| %>                
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header ta-center">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="inverted rt-header">I'm looking for clients</h2>
-        </div>
-        <div class="modal-body copy">
-          <div class="row">
-            <div class="col-md-4">
-              <strong class="section_heading_title">About you</strong>
-              <%= f.label :name %>
-              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
-                                      :title => 'Minimum 3 characters' %>
-              <%= f.label :age %>
-              <%= f.text_field :age, :required => true, :pattern => '\d*', 
-                                     :title => 'No spaces between numbers' %>
-              <%= f.label :gender %>
-              <%= f.select :gender, ['Male','Female'], { :include_blank => '-- Please select --' }, :required => true %>              
-              <%= f.label :mobile_number %>
-              <%= f.text_field :mobile_number, :required => true, :pattern => '\d*', 
-                                               :title => 'No spaces between numbers' %>
-              <%= f.label :home_number %>
-              <%= f.text_field :home_number, :required => true, :pattern => '\d*', 
-                                       :title => 'No spaces between numbers' %>
-              <%= f.label :email %>
-              <%= f.text_field :email, :required => true, 
-                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
-            </div>
-            <div class="col-md-4">
-              <strong class="section_heading_title">About the tuition</strong>
-              <%= f.label :state %>
-              <%= f.select :state, ['WP Kuala Lumpur', 'WP Labuan', 'WP Putrajaya', 'Selangor', 'Pulau Pinang', 'Melaka', 'Perak', 
-                                    'Negeri Sembilan', 'Johor', 'Perlis', 'Kedah', 'Pahang', 'Terengganu', 'Kelantan', 'Sabah', 
-                                    'Sarawak'], { :include_blank => '-- Please select --' }, :required => true %>
-              <%= f.label :service_area, 'Preferred service area' %>
-              <%= f.text_field :service_area, :required => true, :pattern => '.{3,}', 
-                                              :title => 'Minimum 3 characters' %>
-              <%= f.label :subjects %>
-              <%= f.text_area :subjects, :rows => "6", 
-                                              :required => true, :pattern => '.{2,}', 
-                                              :title => 'Minimum 2 characters' %>
-              <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
-              <%= f.text_area :levels, :rows => "4", 
-                                              :required => true, :pattern => '.{2,}', 
-                                              :title => 'Minimum 2 characters' %>
-            </div>
-            <div class="col-md-4">
-              <strong class="section_heading_title">&nbsp;</strong>
-              <%= label_tag :multi_availability, 'My availability' %>
-              <%= select_tag :multi_availability, "<option>MON - Morning (8am-2pm)</option><option>MON - Afternoon (2pm-6pm)</option><option>MON - Evening (6pm-10pm)</option><option>TUE - Morning (8am-2pm)</option><option>TUE - Afternoon (2pm-6pm)</option><option>TUE - Evening (6pm-10pm)</option><option>WED - Morning (8am-2pm)</option><option>WED - Afternoon (2pm-6pm)</option><option>WED - Evening (6pm-10pm)</option><option>THU - Morning (8am-2pm)</option><option>THU - Afternoon (2pm-6pm)</option><option>THU - Evening (6pm-10pm)</option><option>FRI - Morning (8am-2pm)</option><option>FRI - Afternoon (2pm-6pm)</option><option>FRI - Evening (6pm-10pm)</option><option>SAT - Morning (8am-2pm)</option><option>SAT - Afternoon (2pm-6pm)</option><option>SAT - Evening (6pm-10pm)</option><option>SUN - Morning (8am-2pm)</option><option>SUN - Afternoon (2pm-6pm)</option><option>SUN - Evening (6pm-10pm)</option>".html_safe, :multiple => true %>
-              <%= f.hidden_field :availability %>
-              <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
-              <%= f.text_area :requirements, :rows => "16" %>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <ul class="errorMessages"></ul>
-          <%= f.submit "SUBMIT", class: "btn expand" %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div> 
-
-<% content_for :foot do %>
-
-  <script type="text/javascript">
-
-    jq183('#top-nav').onePageNav({
-      currentClass: 'current',
-      changeHash: true
-    });  
-
-  </script>
-  
-<% end %>
