@@ -64,6 +64,6 @@ class TutorSeeksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tutor_seek_params
-      params.require(:tutor_seek).permit(:title, :name, :mobile_number, :home_number, :email, :reason, :state, :service_area, :subjects, :levels, :num_students, :requirements)
+      params.require(:tutor_seek).permit(:title, :name, :mobile_number, :home_number, :email, :reason, :state, :service_area, :subjects, :levels, :num_students, :requirements, :exam_date)
     end
 end

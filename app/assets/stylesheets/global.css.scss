@@ -550,3 +550,12 @@ select {
  .valid {
     background: #17D654;
 }
+/** For Webshims - copy to public/webshims/shims/styles/shim-ext.css **/
+.ws-popover-opener {
+    width: 22px;
+    height:24px;
+}
+.input-buttons {
+    margin-top: -20px;
+    margin-left: -45px;
+}
