@@ -23,7 +23,6 @@ $navbar-default-bg: #ffffff;
         text-align: center;
         img {
             width: 200px;
-            margin-left: -15px;
         }
     }
     .navbar-right {
@@ -67,7 +66,7 @@ $navbar-default-bg: #ffffff;
     background-color: rgba(213, 211, 207, .6);
 }
 .header-container {
-    padding: 2em 0 5em;
+    padding: 2em 0 4em;
     text-align: center;
 }
 .rt-header {
@@ -168,6 +167,81 @@ $navbar-default-bg: #ffffff;
         max-width: 400px;
     }    
 }
+
+#jobs-block {
+    background-color: #f3f3f2;
+    padding-bottom: 50px;
+    .job {
+        position: relative;
+        float: left;
+        width: 100%;
+        min-height: 1px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: inherit;
+        font-weight: normal;
+        margin: 5px 0;
+        .job-inner {
+            float: left;
+            width: 100%;
+            color: #333;
+            position: relative;
+            border: 1px solid #DDD;
+            background-repeat: no-repeat;
+            background-size: 65px;
+            background-position: top right;
+            background-color: #fff;
+            &:hover {
+                background-color: #fafafa;
+            }            
+            .description {
+                float: left;
+                padding-top: 16px;
+                padding-left: 9px;
+                width: 50%;
+                .subject {
+                    font-size: 17px;
+                    font-weight: 600;
+                    line-height: 19px;                
+                }
+                .level {
+                    font-size: 18px;
+                    line-height: 20px;
+                    font-weight: 400;
+                }      
+                .client {
+                    font-size: 12px;
+                    font-weight: 400;
+                    padding-bottom: 10px;
+                    padding-left: 2px;
+                }                          
+            }  
+            .detail {
+                float: left;
+                width: 30%;
+                font-weight: 200;
+                margin-top: 20px;
+                p {
+                    margin: 0;
+                    padding: 5px 0 0;
+                    color: #797979;
+                    .fa {
+                        width: 30px;
+                        text-align: center;
+                    }                    
+                }                
+            }    
+            .refer {     
+                float: left;
+                width: 20%;
+                .btn {
+                    margin-top: 25px;                
+                }           
+            }
+        }        
+    }
+}
+
 #how-it-works-block {
     padding-bottom: 80px;
     background-color: #f3f3f2;
@@ -315,6 +389,10 @@ body>footer {
         }
     }
 }
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
 a.rt-link {
     color: #e11f2b;
     text-decoration: none;
@@ -331,7 +409,6 @@ a.rt-link:hover {
 label {
     display: block;
     font-weight: normal;
-    margin-top: 20px;
 }
 img {
     display: block;
@@ -360,6 +437,10 @@ select, textarea, input[type=text], input[type=password], input[type=datetime], 
     border: 1px solid #aaa;
     width: 100%;
     border-radius: 4px;
+    margin-bottom: 20px;
+}
+.ms-choice {
+    margin-bottom: 20px;
 }
 select {
     height: 34px;
