@@ -13,7 +13,6 @@ $navbar-default-bg: #ffffff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
     .navbar-brand {
         min-height: 90px;
-        margin-left: -10px;
         display: inline-block;
         padding-top: 35px;
         float: left;
@@ -52,6 +51,7 @@ $navbar-default-bg: #ffffff;
         background-color: #0074af;
         border: 1px solid #0074af;
         margin-top: 15px;
+        margin-left: 30px;
         padding: 20px;
         width: 100%;
         &:hover {
@@ -83,14 +83,11 @@ $navbar-default-bg: #ffffff;
     line-height: 45px;
 }
 .content-wrap {
-    padding-top: 92px;
-    min-height: 100%;
-    width: 100%;
+    padding-top: 120px;
 }
 #hero-block {
     background-color: #e8e7e1;
     /* margin: 10px; */
-    padding-top: 92px;
     min-height: 500px;
     h3 {
         display: block;
@@ -169,7 +166,6 @@ $navbar-default-bg: #ffffff;
     }    
 }
 #how-it-works-block {
-    padding-top: 92px;
     padding-bottom: 80px;
     background-color: #f3f3f2;
     div.sprite {
@@ -217,9 +213,14 @@ $navbar-default-bg: #ffffff;
     }
 }
 #faq-block {
-    padding-top: 80px;
+    padding-top: 50px;
     padding-bottom: 80px;
     background-color: #e8e7e1;
+}
+.anchor {
+    padding-top: 60px;
+    margin-top: -60px;
+    display: inline-block;
 }
 h2.inverted {
     color: #e11f2b;
