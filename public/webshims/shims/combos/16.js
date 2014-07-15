@@ -158,7 +158,7 @@ var swfmini = function() {
 		webshims.$.noop
 	;
 
-	if(!Modernizr.video){
+	if(!webshims.support.mediaelement){
 		loadEmbed();
 	} else {
 		webshims.ready('WINDOWLOAD', loadEmbed);
@@ -285,7 +285,7 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 	var supportHrefNormalized = !('hrefNormalized' in $.support) || $.support.hrefNormalized;
 	var supportGetSetAttribute = !('getSetAttribute' in $.support) || $.support.getSetAttribute;
 	var has = Object.prototype.hasOwnProperty;
-	webshims.assumeARIA = supportGetSetAttribute || Modernizr.canvas || Modernizr.video || Modernizr.boxsizing;
+	webshims.assumeARIA = true;
 	
 	if($('<input type="email" />').attr('type') == 'text' || $('<form />').attr('novalidate') === "" || ('required' in $('<input />')[0].attributes)){
 		webshims.error("IE browser modes are busted in IE10+. Please test your HTML/CSS/JS with a real IE version or at least IETester or similiar tools");
@@ -303,15 +303,6 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 					window.$ = webshims.$;
 				}
 				window.jQuery = webshims.$;
-			}
-			if(webshims.M != Modernizr){
-				webshims.error("Modernizr was included more than once. Make sure to include it only once! Webshims and other scripts might not work properly.");
-				for(var i in Modernizr){
-					if(!(i in webshims.M)){
-						webshims.M[i] = Modernizr[i];
-					}
-				}
-				Modernizr = webshims.M;
 			}
 		};
 		switch$();
@@ -641,7 +632,7 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 		var UNKNOWN = webshims.getPrototypeOf(document.createElement('foobar'));
 		
 		//see also: https://github.com/lojjic/PIE/issues/40 | https://prototype.lighthouseapp.com/projects/8886/tickets/1107-ie8-fatal-crash-when-prototypejs-is-loaded-with-rounded-cornershtc
-		var isExtendNativeSave = Modernizr.advancedObjectProperties && Modernizr.objectAccessor;
+		var isExtendNativeSave = webshims.support.advancedObjectProperties && webshims.support.objectAccessor;
 		return function(nodeName, prop, desc){
 			var elem , elemProto;
 			 if( isExtendNativeSave && (elem = document.createElement(nodeName)) && (elemProto = webshims.getPrototypeOf(elem)) && UNKNOWN !== elemProto && ( !elem[prop] || !has.call(elem, prop) ) ){
@@ -952,7 +943,7 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 							});
 						}
 						webshims.ready('WINDOWLOAD', this.test);
-						$(document).on('updatelayout.webshim pageinit popupafteropen panelbeforeopen tabsactivate collapsibleexpand shown.bs.modal shown.bs.collapse slid.bs.carousel', this.handler);
+						$(document).on('updatelayout.webshim pageinit popupafteropen panelbeforeopen tabsactivate collapsibleexpand shown.bs.modal shown.bs.collapse slid.bs.carousel playerdimensionchange', this.handler);
 						$(window).on('resize', this.handler);
 					}
 				}
@@ -1462,13 +1453,10 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 			e._isPolyfilled = true;
 		}
 	};
-	
-	if(Modernizr.formvalidation && !webshims.bugs.bustedValidity){
-		//create delegatable events
-		webshims.capturingEvents(['invalid'], true);
-	}
+
 
 	var modules = webshims.modules;
+	var support = webshims.support;
 	var isValid = function(elem){
 		return ($.prop(elem, 'validity') || {valid: 1}).valid;
 	};
@@ -1522,7 +1510,7 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 				return !!($.prop(elem, 'willValidate') && $.prop(elem, 'required'));
 			},
 			"user-error": function(elem){
-				return ($.prop(elem, 'willValidate') && $(elem).hasClass('user-error'));
+				return ($.prop(elem, 'willValidate') && $(elem).getShadowElement().hasClass((options.iVal.errorClass || 'user-error')));
 			},
 			"optional-element": function(elem){
 				return !!($.prop(elem, 'willValidate') && $.prop(elem, 'required') === false);
@@ -1534,7 +1522,7 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 		});
 		
 		// sizzle/jQuery has a bug with :disabled/:enabled selectors
-		if(Modernizr.fieldsetdisabled && !$('<fieldset disabled=""><input /><input /></fieldset>').find(':disabled').filter(':disabled').is(':disabled')){
+		if(support.fieldsetdisabled && !$('<fieldset disabled=""><input /><input /></fieldset>').find(':disabled').filter(':disabled').is(':disabled')){
 			matches = $.find.matches;
 			matchesOverride = {':disabled': 1, ':enabled': 1};
 			$.find.matches = function(expr, elements){
@@ -1588,6 +1576,10 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 	addModule('form-validators', $.extend({}, formExtras));
 
 
+	if(support.formvalidation && !webshims.bugs.bustedValidity){
+		//create delegatable events
+		webshims.capturingEvents(['invalid'], true);
+	}
 	
 	if($.expr.filters){
 		extendSels();
@@ -1733,7 +1725,7 @@ webshims.register('dom-extend', function($, webshims, window, document, undefine
 
 	webshims.ready('WINDOWLOAD', lazyLoad);
 
-	if(modules['form-number-date-ui'].loaded && !options.customMessages && (modules['form-number-date-api'].test() || (Modernizr.inputtypes.range && Modernizr.inputtypes.color))){
+	if(modules['form-number-date-ui'].loaded && !options.customMessages && (modules['form-number-date-api'].test() || (support.inputtypes.range && support.inputtypes.color))){
 		webshims.isReady('form-number-date-ui', true);
 	}
 
@@ -1814,12 +1806,11 @@ var typeModels = webshims.inputTypes,
 					}
 					return fn;
 				})();
-				if(!Modernizr.prefixed || Modernizr.prefixed("matchesSelector", document.documentElement)){
-					$.find.matchesSelector = function(node, expr){
-						expr = expr.replace(regExp, regFn);
-						return matchesSelector.call(this, node, expr);
-					};
-				}
+
+				$.find.matchesSelector = function(node, expr){
+					expr = expr.replace(regExp, regFn);
+					return matchesSelector.call(this, node, expr);
+				};
 				
 			})();
 		}
@@ -1869,12 +1860,13 @@ var getGroupElements = function(elem){
 		} else {
 			form = elem.prop('form');
 			ret = $(document.getElementsByName(name)).filter(function(){
-				return this.type == 'radio' && this.name == name && $.prop(this, 'form') == form;
+				return this.type == 'radio' && $.prop(this, 'form') == form && this.name == name;
 			});
 		}
 	}
 	return ret;
 };
+
 var patternTypes = {url: 1, email: 1, text: 1, search: 1, tel: 1, password: 1};
 var lengthTypes = $.extend({textarea: 1}, patternTypes);
 
@@ -1952,6 +1944,8 @@ $.each({typeMismatch: 'mismatch', badInput: 'bad'}, function(name, fn){
 		return ret;
 	};
 });
+
+webshims.modules["form-core"].getGroupElements = getGroupElements;
 
 webshims.addValidityRule = function(type, fn){
 	validityRules[type] = fn;
@@ -2271,7 +2265,7 @@ webshims.defineNodeNameProperty('form', 'noValidate', {
 	});
 });
 
-if(Modernizr.inputtypes.date && /webkit/i.test(navigator.userAgent)){
+if(webshims.support.inputtypes.date && /webkit/i.test(navigator.userAgent)){
 	(function(){
 		
 		var noInputTriggerEvts = {updateInput: 1, input: 1},
@@ -2383,7 +2377,7 @@ webshims.addReady(function(context, contextElem){
 	
 });
 
-if(!Modernizr.input.list){
+if(!webshims.support.datalist){
 	webshims.defineNodeNameProperty('datalist', 'options', {
 		prop: {
 			writeable: false,
@@ -2817,7 +2811,7 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 	};
 	
 	
-	if(!Modernizr.formvalidation || webshims.bugs.bustedValidity){
+	if(!webshims.support.formvalidation || webshims.bugs.bustedValidity){
 		implementProperties.push('validationMessage');
 	}
 	
@@ -2853,7 +2847,7 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 						if(message){return message;}
 						
 						if(validity.customError && elem.nodeName){
-							message = (Modernizr.formvalidation && !webshims.bugs.bustedValidity && desc.prop._supget) ? desc.prop._supget.call(elem) : webshims.data(elem, 'customvalidationMessage');
+							message = (webshims.support.formvalidation && !webshims.bugs.bustedValidity && desc.prop._supget) ? desc.prop._supget.call(elem) : webshims.data(elem, 'customvalidationMessage');
 							if(message){return message;}
 						}
 						$.each(validity, function(name, prop){
@@ -2932,8 +2926,8 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 	 */
 	
 	(function(){
-		var formsCFG = $.webshims.cfg.forms;
-		var listSupport = Modernizr.input.list;
+		var formsCFG = webshims.cfg.forms;
+		var listSupport = webshims.support.datalist;
 		if(listSupport && !formsCFG.customDatalist){return;}
 		
 			var initializeDatalist =  function(){
@@ -3171,9 +3165,10 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 	})();
 	
 });
-;(function(Modernizr, webshims){
+;(function(webshims){
 	"use strict";
-	var hasNative = Modernizr.audio && Modernizr.video;
+	var support = webshims.support;
+	var hasNative = support.mediaelement;
 	var supportsLoop = false;
 	var bugs = webshims.bugs;
 	var swfType = 'mediaelement-jaris';
@@ -3188,7 +3183,7 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 
 	var wsCfg = webshims.cfg;
 	var options = wsCfg.mediaelement;
-	var hasSwf;
+	var isIE = navigator.userAgent.indexOf('MSIE') != -1;
 	if(!options){
 		webshims.error("mediaelement wasn't implemented but loaded");
 		return;
@@ -3196,14 +3191,14 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 
 	if(hasNative){
 		var videoElem = document.createElement('video');
-		Modernizr.videoBuffered = ('buffered' in videoElem);
-		Modernizr.mediaDefaultMuted = ('defaultMuted' in videoElem);
+		support.videoBuffered = ('buffered' in videoElem);
+		support.mediaDefaultMuted = ('defaultMuted' in videoElem);
 		supportsLoop = ('loop' in videoElem);
-		Modernizr.mediaLoop = supportsLoop;
+		support.mediaLoop = supportsLoop;
 
 		webshims.capturingEvents(['play', 'playing', 'waiting', 'paused', 'ended', 'durationchange', 'loadedmetadata', 'canplay', 'volumechange']);
 		
-		if( !Modernizr.videoBuffered || !supportsLoop || (!Modernizr.mediaDefaultMuted && navigator.userAgent.indexOf('MSIE') != -1 && 'ActiveXObject' in window) ){
+		if( !support.videoBuffered || !supportsLoop || (!support.mediaDefaultMuted && isIE && 'ActiveXObject' in window) ){
 			webshims.addPolyfill('mediaelement-native-fix', {
 				d: ['dom-support']
 			});
@@ -3211,7 +3206,7 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 		}
 	}
 	
-	if(Modernizr.track && !bugs.track){
+	if(support.track && !bugs.track){
 		(function(){
 			if(!bugs.track){
 
@@ -3231,7 +3226,7 @@ webshims.defineNodeNamesProperties(['input', 'button'], formSubmitterDescriptors
 	}
 
 webshims.register('mediaelement-core', function($, webshims, window, document, undefined, options){
-	hasSwf = swfmini.hasFlashPlayerVersion('10.0.3');
+	var hasSwf = swfmini.hasFlashPlayerVersion('10.0.3');
 	var mediaelement = webshims.mediaelement;
 	
 	mediaelement.parseRtmp = function(data){
@@ -3293,11 +3288,7 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 				}
 			}
 		}
-		
-		if(!src.container){
-			$(elem).attr('data-wsrecheckmimetype', '');
-		}
-		
+
 		tmp = elem.attr('media');
 		if(tmp){
 			src.media = tmp;
@@ -3427,11 +3418,6 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 		}
 	};
 	
-	
-	$.fn.loadMediaSrc = function(){
-		webshims.error('loadMediaSrc was removed.');
-	};
-	
 	mediaelement.swfMimeTypes = ['video/3gpp', 'video/x-msvideo', 'video/quicktime', 'video/x-m4v', 'video/mp4', 'video/m4p', 'video/x-flv', 'video/flv', 'audio/mpeg', 'audio/aac', 'audio/mp4', 'audio/x-m4a', 'audio/m4a', 'audio/mp3', 'audio/x-fla', 'audio/fla', 'youtube/flv', 'video/jarisplayer', 'jarisplayer/jarisplayer', 'video/youtube', 'video/rtmp', 'audio/rtmp'];
 	
 	mediaelement.canThirdPlaySrces = function(mediaElem, srces){
@@ -3489,7 +3475,7 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 				message = "can't play sources";
 			}
 			$(elem).pause().data('mediaerror', message);
-			webshims.error('mediaelementError: '+ message);
+			webshims.error('mediaelementError: '+ message +'. Run the following line in your console to get more info: webshim.mediaelement.loadDebugger();');
 			setTimeout(function(){
 				if($(elem).data('mediaerror')){
 					$(elem).addClass('media-error').trigger('mediaerror');
@@ -3521,37 +3507,38 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 			}
 		};
 	})();
-	
-	var stepSources = function(elem, data, useSwf, _srces, _noLoop){
-		var ret;
-		if(useSwf || (useSwf !== false && data && data.isActive == 'third')){
-			ret = mediaelement.canThirdPlaySrces(elem, _srces);
-			if(!ret){
-				if(_noLoop){
-					mediaelement.setError(elem, false);
-				} else {
-					stepSources(elem, data, false, _srces, true);
-				}
-			} else {
-				handleThird(elem, ret, data);
+
+	var activate = {
+		native: function(elem, src, data){
+			if(data && data.isActive == 'third') {
+				mediaelement.setActive(elem, 'html5', data);
 			}
-		} else {
-			ret = mediaelement.canNativePlaySrces(elem, _srces);
-			if(!ret){
-				if(_noLoop){
-					mediaelement.setError(elem, false);
-					if(data && data.isActive == 'third') {
-						mediaelement.setActive(elem, 'html5', data);
-					}
-				} else {
-					stepSources(elem, data, true, _srces, true);
-				}
-			} else if(data && data.isActive == 'third') {
+		},
+		third: handleThird
+	};
+
+	var stepSources = function(elem, data, srces){
+		var i, src;
+		var testOrder = [{test: 'canNativePlaySrces', activate: 'native'}, {test: 'canThirdPlaySrces', activate: 'third'}];
+		if(options.preferFlash || (data && data.isActive == 'third') ){
+			testOrder.reverse();
+		}
+		for(i = 0; i < 2; i++){
+			src = mediaelement[testOrder[i].test](elem, srces);
+			if(src){
+				activate[testOrder[i].activate](elem, src, data);
+				break;
+			}
+		}
+
+		if(!src){
+			mediaelement.setError(elem, false);
+			if(data && data.isActive == 'third') {
 				mediaelement.setActive(elem, 'html5', data);
 			}
 		}
 	};
-	var stopParent = /^(?:embed|object|datalist)$/i;
+	var stopParent = /^(?:embed|object|datalist|picture)$/i;
 	var selectSource = function(elem, data){
 		var baseData = webshims.data(elem, 'mediaelementBase') || webshims.data(elem, 'mediaelementBase', {});
 		var _srces = mediaelement.srces(elem);
@@ -3566,7 +3553,8 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 		if(mediaelement.sortMedia){
 			_srces.sort(mediaelement.sortMedia);
 		}
-		stepSources(elem, data, options.preferFlash || undefined, _srces);
+		stepSources(elem, data, _srces);
+
 	};
 	mediaelement.selectSource = selectSource;
 	
@@ -3577,20 +3565,22 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 		setTimeout(function(){
 			if( $.prop(e.target, 'paused') || !$.prop(e.target, 'loop') ){return;}
 			$(e.target).prop('currentTime', 0).play();
-		}, 1);
+		});
 		
 	});
 	
 	var handleMedia = false;
+
 	var initMediaElements = function(){
 		var testFixMedia = function(){
+
 			if(webshims.implement(this, 'mediaelement')){
 				selectSource(this);
-				if(!Modernizr.mediaDefaultMuted && $.attr(this, 'muted') != null){
+				if(!support.mediaDefaultMuted && $.attr(this, 'muted') != null){
 					$.prop(this, 'muted', true);
 				}
+
 			}
-			
 		};
 		
 		webshims.ready('dom-support', function(){
@@ -3606,17 +3596,19 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 					prop: {
 						value: function(){
 							var data = webshims.data(this, 'mediaelement');
+
 							selectSource(this, data);
 							if(hasNative && (!data || data.isActive == 'html5') && supLoad.prop._supvalue){
 								supLoad.prop._supvalue.apply(this, arguments);
 							}
-							if(!loadTrackUi.loaded && $('track', this).length){
+							if(!loadTrackUi.loaded && this.querySelector('track')){
 								loadTrackUi();
 							}
 							$(this).triggerHandler('wsmediareload');
 						}
 					}
 				});
+
 				nativeCanPlayType[nodeName] = webshims.defineNodeNameProperty(nodeName, 'canPlayType',  {
 					prop: {
 						value: function(type){
@@ -3632,6 +3624,9 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 								if(mediaelement.swfMimeTypes.indexOf(type) != -1){
 									ret = 'maybe';
 								}
+							}
+							if(!ret && hasYt && type == 'video/youtube'){
+								ret = 'maybe';
 							}
 							return ret;
 						}
@@ -3682,8 +3677,18 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 			});
 		}
 	};
-	
 
+	mediaelement.loadDebugger = function(){
+		webshims.ready('dom-support', function(){
+			webshims.loader.loadScript('mediaelement-debug');
+		});
+	};
+
+	if(({noCombo: 1, media: 1})[webshims.cfg.debug]){
+		$(document).on('mediaerror', function(e){
+			mediaelement.loadDebugger();
+		});
+	}
 	//set native implementation ready, before swf api is retested
 	if(hasNative){
 		webshims.isReady('mediaelement-core', true);
@@ -3695,4 +3700,4 @@ webshims.register('mediaelement-core', function($, webshims, window, document, u
 	webshims.ready('track', loadTrackUi);
 });
 
-})(Modernizr, webshims);
+})(webshims);

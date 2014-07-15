@@ -64,6 +64,6 @@ class ClientSeeksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_seek_params
-      params.require(:client_seek).permit(:name, :age, :gender, :mobile_number, :home_number, :email, :state, :service_area, :subjects, :levels, :availability, :requirements)
+      params.require(:client_seek).permit(:heading, :name, :mobile_number, :email, :state, :tutor_name, :tutor_mobile_number, :tutor_email, :age, :gender, :service_area, :subjects, :levels, :availability, :experience)
     end
 end

@@ -1,18 +1,12 @@
-<div id="hero-block" class="content-wrap">
+<div id="hero-block">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="row ta-center">
-          <% flash.each do |type, message| %>
-            <div class="alert <%= bootstrap_class_for(type) %> fade in">
-              <button class="close" data-dismiss="alert">×</button>
-              <%= message %>
-            </div>
-          <% end %>   
           <div class="header-container">
             <h2 class="rt-header">Refer a tutor.</h2><BR/>
             <h2 class="rt-header inverted">The tutor gets a job.</h2><BR/>
-            <h2 class="rt-header">You get paid.</h2>
+            <h2 class="rt-header">You get paid.</h2>            
           </div>          
         </div>
         <div class="row">
@@ -57,36 +51,54 @@
     <div class="row">
       <div class="col-md-9 col-centered">
         <div class="job">
-          <a href="#" data-toggle="modal" data-target="#clientModal">
+          <a href="#" class="open-ClientModal" data-toggle="modal" data-target="#clientModal">
             <div class="job-inner fulltime" >
-              <div class="description">
+              <div class="col-md-6 description">
                 <p class="subject">IGCSE biology. Exam in Oct/Nov 2014</p>
                 <p class="level">Year 11</p>
                 <p class="client">Ms Goh</p>    
               </div>          
-              <div class="detail">
+              <div class="col-md-3 detail">
                 <p class="state"><i class="fa fa-map-marker"></i>WP Kuala Lumpur</p>
                 <p class="service-area"><i class="fa fa-car"></i>Titiwangsa</p>
               </div>
-              <div class="refer">
+              <div class="col-md-3 refer">
                 <button class="btn">REFER A TUTOR</button>
               </div>
             </div>
           </a>
         </div>
         <div class="job">          
-          <a href="#" data-toggle="modal" data-target="#clientModal">
+          <a href="#" class="open-ClientModal" data-toggle="modal" data-target="#clientModal">
             <div class="job-inner fulltime">
-              <div class="description">
+              <div class="col-md-6 description">
                 <p class="subject">IGCSE English</p>
                 <p class="level">Year 7</p>
                 <p class="client">Ms Amy Chong</p>    
               </div>          
-              <div class="detail">
+              <div class="col-md-3 detail">
                 <p class="state"><i class="fa fa-map-marker"></i>WP Kuala Lumpur</p>
                 <p class="service-area"><i class="fa fa-car"></i>Bandar Sri Damansara</p>
               </div>
-              <div class="refer">
+              <div class="col-md-3 refer">
+                <button class="btn">REFER A TUTOR</button>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="job">          
+          <a href="#" class="open-ClientModal" data-toggle="modal" data-target="#clientModal">
+            <div class="job-inner fulltime">
+              <div class="col-md-6 description">
+                <p class="subject">Guiding on school work (English)</p>
+                <p class="level">Year 4 International School</p>
+                <p class="client">Mr Lam</p>    
+              </div>          
+              <div class="col-md-3 detail">
+                <p class="state"><i class="fa fa-map-marker"></i>WP Kuala Lumpur</p>
+                <p class="service-area"><i class="fa fa-car"></i>Bukit Jalil</p>
+              </div>
+              <div class="col-md-3 refer">
                 <button class="btn">REFER A TUTOR</button>
               </div>
             </div>
@@ -97,5 +109,19 @@
   </div>
 </div>
 
+<% content_for :foot do %>
+
+  <script type="text/javascript">
+
+    $(document).on("click", ".open-ClientModal", function () {
+      $this = $(this);
+      var heading = $this.find('.subject').text() + " - " + $this.find('.level').text() + " - " + $this.find('.client').text();      
+      heading += " - " + $this.find('.state').text() + " - " + $this.find('.service-area').text();
+      $("#client_seek_heading").val(heading);
+    });
+
+  </script>
+
+<% end %>
 
 

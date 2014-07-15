@@ -15,9 +15,7 @@
  */ 
 (function ($, version) {
 	"use strict";
-	if(!window.Modernizr || !('opacity' in Modernizr) || !('csstransitions' in Modernizr)){
-		$('html').addClass(('opacity' in document.documentElement.style) ? 'opacity' : 'no-opacity');
-	}
+
 	var mPrecision = function (value, precision) {
 		if (precision === undefined) precision = 0;
 		return Math.round(value * Math.pow(10, precision)) / Math.pow(10, precision);
@@ -2305,7 +2303,7 @@ webshims.register('color-picker', function($, webshims, window, document, undefi
 				
 				
 				var mode = $(data.orig).data('colormode') || 'h';
-				if(!data.alpha.length){
+				if(!data.alpha || !data.alpha.length){
 					jpicker.addClass('no-alpha-picker');
 					if(mode == 'a'){
 						mode = 'h';
@@ -2399,7 +2397,7 @@ webshims.register('color-picker', function($, webshims, window, document, undefi
 			var value = data.parseValue();
 			implementPickerFor(data);
 			
-			value += (data.alpha.length) ?
+			value += (data.alpha && data.alpha.length) ?
 				$.wsjPicker.ColorMethods.intToHex( (data.alpha.prop('value') || 1) * (255 / (data.alpha.prop('max') || 1)) ) :
 				'ff'
 			;

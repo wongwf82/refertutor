@@ -1,21 +1,40 @@
-webshims.register('jme', function($, webshims, window, doc, undefined){
+webshims.register('jmebase', function($, webshims, window, doc, undefined){
 	"use strict";
 	var props = {};
 	var fns = {};
 	var slice = Array.prototype.slice;
-
+	var readyLength = 0;
 	var options = $.extend({selector: '.mediaplayer'}, webshims.cfg.mediaelement.jme);
+	var baseSelector = options.selector;
+	
 	webshims.cfg.mediaelement.jme = options;
 
+	if(!$.jme){
+		$.jme = {};
+	}
 
-	$.jme = {
+	$.extend($.jme, {
+		pluginsClasses: [],
+		pluginsSel: '',
 		plugins: {},
+		props: props,
+		fns: fns,
 		data: function(elem, name, value){
 			var data = $(elem).data('jme') || $.data(elem, 'jme', {});
 			if(value === undefined){
 				return (name) ? data[name] : data;
 			} else {
 				data[name] = value;
+			}
+		},
+		runPlugin: function(sel){
+			if(readyLength){
+				$(document.querySelectorAll(baseSelector)).each(function(){
+					var controls = this.querySelectorAll(sel);
+					if(controls.length){
+						$(this).jmeFn('addControls', controls);
+					}
+				});
 			}
 		},
 		registerPlugin: function(name, plugin){
@@ -27,6 +46,10 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 				plugin.className = name;
 			}
 
+			this.pluginsClasses.push('.'+plugin.className);
+
+			this.pluginsSel = this.pluginsClasses.join(', ');
+
 			options[name] = $.extend(plugin.options || {}, options[name]);
 
 			if(options[name] && options[name].text){
@@ -34,6 +57,11 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 			} else if(options.i18n && options.i18n[name]){
 				plugin.text = options.i18n[name];
 			}
+			this.runPlugin('.'+plugin.className);
+		},
+		configmenuPlugins: {},
+		addToConfigmenu: function(name, create){
+			this.configmenuPlugins[name] = create;
 		},
 		defineMethod: function(name, fn){
 			fns[name] = fn;
@@ -74,7 +102,7 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 				}
 			}
 		}
-	};
+	});
 
 	$.fn.jmeProp = function(name, value){
 		return $.access( this, $.jme.prop, name, value, arguments.length > 1 );
@@ -84,6 +112,10 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 		var args = slice.call( arguments, 1 );
 		var ret;
 		this.each(function(){
+			if(!$.jme.data(this).media){
+				$(this).closest(baseSelector).jmePlayer();
+				webshims.warn('jmeFn called to early or on wrong element!');
+			}
 			ret = (fns[fn] || $.prop(this, fn)).apply(this, args);
 			if(ret !== undefined){
 				return false;
@@ -100,10 +132,8 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 	};
 
 
-	var baseSelector = options.selector;
-
 	$.jme.initJME = function(context, insertedElement){
-		$(baseSelector, context).add(insertedElement.filter(baseSelector)).jmePlayer();
+		readyLength += $(context.querySelectorAll(baseSelector)).add(insertedElement.filter(baseSelector)).jmePlayer().length;
 	};
 
 
@@ -163,11 +193,9 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 	$.fn.jmePlayer = function(opts){
 
 		return this.each(function(){
-			if(opts){
-				$.jme.data(this, $.extend(true, {}, opts));
-			}
 
-			var mediaUpdateFn, canPlay, removeCanPlay, canplayTimer, lastState, stopEmptiedEvent;
+
+			var mediaUpdateFn, canPlay, removeCanPlay, canplayTimer, lastState, stopEmptiedEvent, forceRender;
 			var media = $('audio, video', this).eq(0);
 			var base = $(this);
 
@@ -179,7 +207,9 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 			mediaData.player = base;
 			mediaData.media = media;
 			if(!jmeData.media){
-
+				forceRender = function(){
+					base[0].className = base[0].className;
+				};
 				removeCanPlay = function(){
 					media.off('canplay', canPlay);
 					clearTimeout(canplayTimer);
@@ -238,6 +268,7 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 					if(state){
 						lastState = state;
 						base.attr('data-state', state);
+						setTimeout(forceRender);
 					}
 				};
 
@@ -286,7 +317,9 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 						base.attr('data-volume', volume);
 					})
 				;
-
+				if($.jme.pluginsSel){
+					base.jmeFn('addControls', $(base[0].querySelectorAll($.jme.pluginsSel)));
+				}
 				if(mediaUpdateFn){
 					media.on('updateJMEState', mediaUpdateFn).triggerHandler('updateJMEState');
 				}
@@ -319,16 +352,16 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 				return [{src: src}];
 			}
 			srces = $.map($('source', data.media).get(), function(source){
+				var i, len;
 				var src = {
 					src: $.prop(source, 'src')
 				};
-				var tmp = $.attr(source, 'media');
-				if(tmp){
-					src.media = tmp;
-				}
-				tmp = $.attr(source, 'type');
-				if(tmp){
-					src.type = tmp;
+				var attributes = source.attributes;
+
+				for(i = 0, len = attributes.length; i < len; i++){
+					if(!('specified' in attributes[i]) || attributes[i].specified){
+						src[attributes[i].nodeName] = attributes[i].nodeValue;
+					}
 				}
 				return src;
 			});
@@ -365,41 +398,54 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 		if(!data.media){return;}
 		var oldControls = $.jme.data(data.player[0], 'controlElements') || $([]);
 		controls = $(controls);
-		$.each($.jme.plugins, function(name, plugin){
-			controls
-				.filter('.'+plugin.className)
-				.add(controls.find('.'+plugin.className))
-				.each(function(){
-					var control = $(this);
-					var options = $.jme.data(this);
+		if($.jme.pluginsSel){
+			controls = controls.find($.jme.pluginsSel).add(controls.filter($.jme.pluginsSel));
+		}
+		if(controls.length){
+			$.each($.jme.plugins, function(name, plugin){
+				var control, options, i, opt;
+				var pluginControls = controls.filter('.'+plugin.className);
+
+				for(i = 0; i < pluginControls.length; i++){
+					control = $(pluginControls[i]);
+					options = $.jme.data(pluginControls[i]);
 					options.player = data.player;
 					options.media = data.media;
-					if(options._rendered){return;}
-					options._rendered = true;
+					if(!options._rendered){
+						options._rendered = true;
 
-					if(plugin.options){
-						$.each(plugin.options, function(option, value){
-							if(!(option in options)){
-								options[option] = value;
+						if(plugin.options){
+							for(opt in plugin.options){
+								if(!(opt in options)){
+									options[opt] = plugin.options[opt];
+								}
 							}
-						});
+						}
+
+						plugin._create(control, data.media, data.player, options);
 					}
-					plugin._create(control, data.media, data.player, options);
-					control = null;
-				})
-			;
-		});
+				}
 
-		$.jme.data(data.player[0], 'controlElements', oldControls.add(controls));
+			});
 
-		data.player.triggerHandler('controlsadded');
+			$.jme.data(data.player[0], 'controlElements', oldControls.add(controls));
+
+			data.player.triggerHandler('controlsadded');
+		}
 	});
 
+	webshims.ready('DOM mediaelement', function(){
+		webshims.isReady('jme', true);
+		webshims.addReady($.jme.initJME);
+		webshims.isReady('jme-base', true);
 
-	webshims.addReady($.jme.initJME);
-	webshims._polyfill(['mediaelement']);
+		if(webshims.cfg.debug !== false && document.getElementsByTagName('video').length && !document.querySelector(baseSelector)){
+			webshims.warn("found video element but video wasn't wrapped inside a ."+ baseSelector +" element. Will not add control UI");
+		}
+	});
+
 });
-;webshims.ready('jme DOM', function(){
+;webshims.ready('jme-base DOM', function(){
 	"use strict";
 	var webshims = window.webshims;
 	var $ = webshims.$;
@@ -786,7 +832,9 @@ webshims.register('jme', function($, webshims, window, doc, undefined){
 			$.each(item.tracks || [], function(i, track){
 				$('<track />').attr(track).appendTo(media);
 			});
-
+			if(!item.srces){
+				item.srces = item;
+			}
 			media.jmeProp('srces', item.srces);
 		},
 		_getItem: function(item){
