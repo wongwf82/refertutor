@@ -28,6 +28,9 @@ $navbar-default-bg: #ffffff;
     }
     .navbar-right {
         float: right;
+        &:last-child {
+            margin-right: 10px;
+        }        
     }
     .nav {
         >li {
@@ -51,7 +54,6 @@ $navbar-default-bg: #ffffff;
         background-color: #0074af;
         border: 1px solid #0074af;
         margin-top: 15px;
-        margin-left: 30px;
         padding: 20px;
         width: 100%;
         &:hover {
@@ -113,9 +115,10 @@ $navbar-default-bg: #ffffff;
         color: #fff;
         background-color: #0074af;
         border: 1px solid #0074af;
-        padding: 20px 130px;
         margin-top: 20px;
         margin-bottom: 40px;
+        width: 30%;
+        min-width: 250px;
         &:hover {
             background-color: #00527c;
             border: 1px solid #00527c;
