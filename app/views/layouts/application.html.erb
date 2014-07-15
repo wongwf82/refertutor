@@ -11,6 +11,7 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
+    <br/><br/>
     <%= yield %>
     <%= render 'layouts/footer' %>
     <%= content_for?(:foot) ? yield(:foot) : '' %>
