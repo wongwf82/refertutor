@@ -15,7 +15,7 @@ class UserMailer < ActionMailer::Base
 
   def client_seek(client_seek)
     @client_seek = client_seek
-    mail(:subject => "ReferTutor.com - I'm referring a tutor", :from => @client_seek[:email])
+    mail(:subject => "ReferTutor.com - A tutor is interested in a job", :from => @client_seek[:email])
   end
 
 end
