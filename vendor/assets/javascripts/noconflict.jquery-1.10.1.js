@@ -1,0 +1,1 @@
+var jq1101 = $.noConflict();

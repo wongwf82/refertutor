@@ -14,7 +14,7 @@
       </div>
       <div class="collapse navbar-collapse" id="topbar">
         <div class="navbar-right">
-          <a href="#" class="btn open-ClientModal" data-toggle="modal" data-target="#applyNowModal">SEND ME JOBS</a>
+          <a href="#" class="btn open-ClientModal" data-toggle="modal" data-target="#applyNowModal">SEND ME JOBS</a>          
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/#job" rel="anchor">Jobs</a></li>
@@ -95,7 +95,7 @@
         </div>
         <div class="modal-footer">
           <ul class="errorMessages"></ul>
-          <%= f.submit "SUBMIT", class: "btn expand" %>
+          <%= button_tag "SUBMIT", class: "btn expand spin" %>
         </div>
       </div>
     </div>
@@ -156,7 +156,7 @@
         </div>
         <div class="modal-footer">
           <ul class="errorMessages"></ul>
-          <%= f.submit "SUBMIT", class: "btn expand" %>
+          <%= button_tag "SUBMIT", class: "btn expand spin" %>
         </div>
       </div>
     </div>
@@ -224,7 +224,48 @@
         </div>
         <div class="modal-footer">
           <ul class="errorMessages"></ul>
-          <%= f.submit "SUBMIT", class: "btn expand" %>
+          <%= button_tag "SUBMIT", class: "btn expand spin" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 
+
+<div id="supportModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <%= form_for(@support) do |f| %>                
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header ta-center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h2 class="inverted rt-header">ReferTutor help center</h2>
+        </div>
+        <div class="modal-body copy">
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.label :name %>
+              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
+                                      :title => 'Minimum 3 characters' %>
+              <%= f.label :email %>
+              <%= f.text_field :email, :required => true, 
+                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
+              <%= f.label :phone %>
+              <%= f.text_field :phone, :required => true, :pattern => '\d*', 
+                                       :title => 'No spaces between numbers' %>
+            </div>
+            <div class="col-md-6">
+              <%= f.label :subject %>
+              <%= f.text_field :subject, :required => true, :pattern => '.{2,}', 
+                                         :title => 'Minimum 2 characters' %>
+              <%= f.label :message %>
+              <%= f.text_area :message, :rows => "4", 
+                                              :required => true, :pattern => '.{3,}', 
+                                              :title => 'Minimum 3 characters' %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <ul class="errorMessages"></ul>
+          <%= button_tag "SUBMIT", class: "btn expand spin" %>
         </div>
       </div>
     </div>
@@ -233,9 +274,9 @@
 
 <% content_for :foot do %>
 
-  <!-- Easing when Anchor link is clicked -->
   <script type="text/javascript">
 
+    // Easing when Anchor link is clicked
     $("[rel='anchor']").click(function() {
       if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'')
           && location.hostname == this.hostname
@@ -266,6 +307,55 @@
       }, 0);
     }
 
+    // Button spinner    
+    jq1101('.spin').on('click', function(event) {
+      $this = jq1101(this);
+      $this.buttonspinner('start');
+      setTimeout(function() {
+        $this.buttonspinner('stop');
+      }, 3000);
+    });
+    jq1101('.spin').buttonspinner();
+
+    // Grouped form errors
+    var createAllErrors = function() {
+
+      var form = $( this ),
+          errorList = $( "ul.errorMessages", form );
+
+      var showAllErrorMessages = function() {
+        errorList.empty();
+
+        // Find all invalid fields within the form.
+        var invalidFields = form.find( ":invalid" ).each( function( index, node ) {
+
+          // Find the field's corresponding label
+          var label = $( "label[for=" + node.id + "] "),
+              // Opera incorrectly does not fill the validationMessage property.
+              message = node.validationMessage || 'Invalid value.';
+
+          errorList
+            .show()
+            .append( "<li><span>" + label.html() + ":</span> " + message + "</li>" );
+        });
+
+        form.find( ":invalid" ).first().focus();
+      };
+
+      $( "input[type=submit], button:not([type=button])", form )
+          .on( "click", showAllErrorMessages);
+
+      $( "input", form ).on( "keypress", function( event ) {
+        var type = $( this ).attr( "type" );
+        if ( /date|email|month|number|search|tel|text|time|url|week/.test ( type )
+          && event.keyCode == 13 ) {
+            showAllErrorMessages();
+        }
+      });
+    };
+    $( "form" ).each( createAllErrors );
+
+    // Webshims
     $.webshims.setOptions('basePath', '/webshims/shims/');
     $.webshims.activeLang("en-AU");
     $.webshims.polyfill('forms forms-ext');

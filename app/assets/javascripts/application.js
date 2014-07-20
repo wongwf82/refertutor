@@ -16,10 +16,15 @@
 //= require webshims/extras/modernizr-custom
 //= require webshims/polyfiller
 //= require bootstrap
+//= require turbolinks
+
+//= require jquery-1.10.1.min
+//= require noconflict.jquery-1.10.1
+//= require spin.min
+//= require jquery.spin
+//= require jquery.buttonspinner
 
 //= require jquery-1.8.3.min
 //= require noconflict.jquery-1.8.3
 //= require jquery.multiple.select
 //= require jquery.nav
-
-//= require turbolinks
