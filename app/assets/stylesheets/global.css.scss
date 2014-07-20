@@ -136,14 +136,19 @@ $navbar-default-bg: #ffffff;
             background-position: -101px 0;
         }
         &.referrals {
-            width: 101px;
-            height: 101px;
+            width: 94px;
+            height: 94px;
             background-position: 0 0;
         }
         &.paid {
-            width: 101px;
-            height: 101px;
+            width: 94px;
+            height: 94px;
             background-position: -101px -101px;
+        }
+        &.literacy {
+            width: 94px;
+            height: 94px;
+            background-position: 0 -101px;
         }
     }
     h3 {
@@ -435,7 +440,7 @@ select, textarea, input[type=text], input[type=password], input[type=datetime], 
     border-radius: 4px;
     margin-bottom: 20px;
 }
-.ms-choice {
+.multi_availability {
     margin-bottom: 20px;
 }
 select {

@@ -20,10 +20,14 @@
 
     <script type="text/javascript">
 
-
       $(document).ready(function(){
         <%= yield(:document_ready) %>
       });
+
+      $(window).load(function(){
+        scrollTop();
+        <%= yield(:window_load) %>
+      });      
     
     </script>  
 

@@ -14,11 +14,17 @@
       </div>
       <div class="collapse navbar-collapse" id="topbar">
         <div class="navbar-right">
-          <a href="#" class="btn" data-toggle="modal" data-target="#tutorModal">POST A JOB</a>
+          <a href="#" class="btn open-ClientModal" data-toggle="modal" data-target="#applyNowModal">SEND ME JOBS</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/#job" rel="anchor">Jobs</a></li>
-          <li><a href="/how">How it works</a></li>
+          <li>
+            <% if "#{request.fullpath}" == "/how" %>
+              <a href="#how" rel="anchor">How it works</a>
+            <% else %>
+              <a href="/how">How it works</a>
+            <% end %>          
+          </li>
           <li><a href="/how#faq" rel="anchor">FAQ</a></li>
         </ul>
       </div>
@@ -26,13 +32,13 @@
   </div>
 </nav>
 
-<div id="clientModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="referTutorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <%= form_for(@client_seek) do |f| %>                
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header ta-center">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="inverted rt-header">Apply or Refer a tutor</h2>
+          <h2 class="inverted rt-header">Refer a tutor</h2>
         </div>
         <div class="modal-body copy">
           <div class="row">
@@ -74,7 +80,7 @@
             </div>
             <div class="col-md-4">
               <%= label_tag :multi_availability, 'Availability' %>
-              <%= select_tag :multi_availability, "<option>MON - Morning (8am-2pm)</option><option>MON - Afternoon (2pm-6pm)</option><option>MON - Evening (6pm-10pm)</option><option>TUE - Morning (8am-2pm)</option><option>TUE - Afternoon (2pm-6pm)</option><option>TUE - Evening (6pm-10pm)</option><option>WED - Morning (8am-2pm)</option><option>WED - Afternoon (2pm-6pm)</option><option>WED - Evening (6pm-10pm)</option><option>THU - Morning (8am-2pm)</option><option>THU - Afternoon (2pm-6pm)</option><option>THU - Evening (6pm-10pm)</option><option>FRI - Morning (8am-2pm)</option><option>FRI - Afternoon (2pm-6pm)</option><option>FRI - Evening (6pm-10pm)</option><option>SAT - Morning (8am-2pm)</option><option>SAT - Afternoon (2pm-6pm)</option><option>SAT - Evening (6pm-10pm)</option><option>SUN - Morning (8am-2pm)</option><option>SUN - Afternoon (2pm-6pm)</option><option>SUN - Evening (6pm-10pm)</option>".html_safe, :multiple => true %>
+              <%= select_tag :multi_availability, "<option>MON - Morning (8am-2pm)</option><option>MON - Afternoon (2pm-6pm)</option><option>MON - Evening (6pm-10pm)</option><option>TUE - Morning (8am-2pm)</option><option>TUE - Afternoon (2pm-6pm)</option><option>TUE - Evening (6pm-10pm)</option><option>WED - Morning (8am-2pm)</option><option>WED - Afternoon (2pm-6pm)</option><option>WED - Evening (6pm-10pm)</option><option>THU - Morning (8am-2pm)</option><option>THU - Afternoon (2pm-6pm)</option><option>THU - Evening (6pm-10pm)</option><option>FRI - Morning (8am-2pm)</option><option>FRI - Afternoon (2pm-6pm)</option><option>FRI - Evening (6pm-10pm)</option><option>SAT - Morning (8am-2pm)</option><option>SAT - Afternoon (2pm-6pm)</option><option>SAT - Evening (6pm-10pm)</option><option>SUN - Morning (8am-2pm)</option><option>SUN - Afternoon (2pm-6pm)</option><option>SUN - Evening (6pm-10pm)</option>".html_safe, { :class => 'multi_availability', :multiple => true } %>
               <%= f.hidden_field :availability %>
               <%= f.label :experience, 'Experience' %>
               <%= f.select :experience, ['Up to 5 years','6-10 years','11-15 years','16-20 years','21-25 years','26-30 years','Over 30 years'], { :include_blank => '-- Please select --' } %>
@@ -96,7 +102,68 @@
   <% end %>
 </div> 
 
-<div id="tutorModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="applyNowModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <%= form_for(@client_seek) do |f| %>                
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header ta-center">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h2 class="inverted rt-header">Apply Now</h2>
+        </div>
+        <div class="modal-body copy">
+          <div class="row">
+            <div class="col-md-4">
+              <strong class="section_heading_title">About you</strong>
+              <%= f.hidden_field :heading, :value => 'Contact me about matching jobs.' %>
+              <%= f.label :name %>
+              <%= f.text_field :name, :required => true, :pattern => '.{3,}', 
+                                      :title => 'Minimum 3 characters' %>
+              <%= f.label :mobile_number %>
+              <%= f.text_field :mobile_number, :required => true, :pattern => '\d*', 
+                                               :title => 'No spaces between numbers' %>
+              <%= f.label :email %>
+              <%= f.text_field :email, :required => true, 
+                                       :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>                    
+              <%= f.label :age %>
+              <%= f.text_field :age, :required => true, :pattern => '\d*', 
+                                     :title => 'No spaces between numbers' %>
+              <%= f.label :gender %>
+              <%= f.select :gender, ['Male','Female'], { :include_blank => '-- Please select --' }, :required => true %>
+            </div>
+            <div class="col-md-8"><strong class="section_heading_title">About the tuition</strong></div>
+            <div class="col-md-4">   
+              <%= f.label :state %>
+              <%= f.select :state, ['WP Kuala Lumpur', 'WP Labuan', 'WP Putrajaya', 'Selangor', 'Pulau Pinang', 'Melaka', 'Perak', 
+                                    'Negeri Sembilan', 'Johor', 'Perlis', 'Kedah', 'Pahang', 'Terengganu', 'Kelantan', 'Sabah', 
+                                    'Sarawak'], { :include_blank => '-- Please select --' }, :required => true %>
+              <%= f.label :service_area, 'Preferred service area' %>
+              <%= f.text_field :service_area, :required => true %>
+              <%= f.label :subjects %>
+              <%= f.text_area :subjects, :required => true, :rows => "6" %>
+              <%= f.label :levels, 'Levels (i.e. Std 1-Form 6, degree, etc.)' %>
+              <%= f.text_area :levels, :required => true, :rows => "4" %>
+            </div>
+            <div class="col-md-4">
+              <%= label_tag :multi_availability, 'Availability' %>
+              <%= select_tag :multi_availability, "<option>MON - Morning (8am-2pm)</option><option>MON - Afternoon (2pm-6pm)</option><option>MON - Evening (6pm-10pm)</option><option>TUE - Morning (8am-2pm)</option><option>TUE - Afternoon (2pm-6pm)</option><option>TUE - Evening (6pm-10pm)</option><option>WED - Morning (8am-2pm)</option><option>WED - Afternoon (2pm-6pm)</option><option>WED - Evening (6pm-10pm)</option><option>THU - Morning (8am-2pm)</option><option>THU - Afternoon (2pm-6pm)</option><option>THU - Evening (6pm-10pm)</option><option>FRI - Morning (8am-2pm)</option><option>FRI - Afternoon (2pm-6pm)</option><option>FRI - Evening (6pm-10pm)</option><option>SAT - Morning (8am-2pm)</option><option>SAT - Afternoon (2pm-6pm)</option><option>SAT - Evening (6pm-10pm)</option><option>SUN - Morning (8am-2pm)</option><option>SUN - Afternoon (2pm-6pm)</option><option>SUN - Evening (6pm-10pm)</option>".html_safe, { :class => 'multi_availability', :multiple => true } %>
+              <%= f.hidden_field :availability %>
+              <%= f.label :experience, 'Experience' %>
+              <%= f.select :experience, ['Up to 5 years','6-10 years','11-15 years','16-20 years','21-25 years','26-30 years','Over 30 years'], { :required => true, :include_blank => '-- Please select --' } %>
+              <%= f.label :requirements, 'Tutoring Requirement or Preferences' %>
+              <%= f.text_area :requirements, :rows => "13" %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <ul class="errorMessages"></ul>
+          <%= f.submit "SUBMIT", class: "btn expand" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div> 
+
+<div id="postJobModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
   <%= form_for(@tutor_seek) do |f| %>                
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -190,9 +257,18 @@
           window.location.href = hash;
       }
     }
-    $.webshims.setOptions('basePath', '/webshims/shims/');
-    $.webshims.activeLang("en-AU");
-    $.webshims.polyfill('forms forms-ext');
+
+    // Fix when turbolink retains previous scroll position
+    function scrollTop() {
+      setTimeout(function() {
+        window.scrollTo(0, 0);
+        goToAnchor();
+      }, 0);
+    }
+
+    // $.webshims.setOptions('basePath', '/webshims/shims/');
+    // $.webshims.activeLang("en-AU");
+    // $.webshims.polyfill('forms forms-ext');
 
   </script>  
 
@@ -202,12 +278,21 @@
  
   $(this).updatePolyfill();
 
-  $('#multi_availability').multipleSelect({
+  jq183('#applyNowModal .multi_availability').multipleSelect({
     width: '100%',
     maxHeight: '500px',
     placeholder: '-- Please select --',
     onClose: function() {   
-      $("#client_seek_availability").val($('#multi_availability').multipleSelect('getSelects'));
+      $("#applyNowModal #client_seek_availability").val($('#applyNowModal .multi_availability').multipleSelect('getSelects'));
+    }
+  });     
+
+  jq183('#referTutorModal .multi_availability').multipleSelect({
+    width: '100%',
+    maxHeight: '500px',
+    placeholder: '-- Please select --',
+    onClose: function() {   
+      $("#referTutorModal #client_seek_availability").val($('#referTutorModal .multi_availability').multipleSelect('getSelects'));
     }
   });          
 

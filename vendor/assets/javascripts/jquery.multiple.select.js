@@ -546,4 +546,4 @@
         onOptgroupClick: function () { return false; },
         onClick: function () { return false; }
     };
-})(jQuery);
+})(jq183);

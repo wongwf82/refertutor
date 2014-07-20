@@ -13,13 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.easing
-//= require jquery.multiple.select
 //= require webshims/extras/modernizr-custom
 //= require webshims/polyfiller
 //= require bootstrap
 
 //= require jquery-1.8.3.min
 //= require noconflict.jquery-1.8.3
+//= require jquery.multiple.select
 //= require jquery.nav
 
 //= require turbolinks
