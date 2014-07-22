@@ -18,6 +18,7 @@ gem 'webshims-rails'
 gem 'delayed_job_active_record'
 gem 'workless', '~> 1.2.2'
 gem 'daemons'
+gem 'metamagic'
 
 group :development do
   gem 'sqlite3', '1.3.8'
